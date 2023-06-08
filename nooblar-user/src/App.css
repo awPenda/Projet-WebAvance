@@ -15,6 +15,7 @@ body {
 
 .App {
   display: flex;
+  flex-direction: column;
 
   width: -moz-available;          /* WebKit-based browsers will ignore this. */
   width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
@@ -28,8 +29,7 @@ body {
 .App-header {
   display: flex;
   justify-content:space-between;
-  margin: 1rem;
-  width: 100%;
+  padding: 1rem;
   
 }
 
@@ -39,7 +39,7 @@ body {
 }
 
 .App-header .App-logo-container .App-logo {
-  height: 5rem;
+  height: 3rem;
 }
 
 .App-header .App-logo-container .App-title{
@@ -81,6 +81,7 @@ body {
 }
 .SideBar .SideBar-profile .profile-text{
   padding: 1rem;
+  text-overflow: ellipsis;
 }
 .SideBar .SideBar-profile .User-pp {
   border-radius: 50%;
@@ -121,6 +122,63 @@ body {
 }
 .NotifBox.warning_color_notif {
   border: solid thin var(--accent-color);
+}
+
+
+.App-element{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+
+}
+.card_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+
+  width: fit-content;
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 0.3rem;
+  box-shadow: 0.5rem 1rem 3rem -2rem var(--main-color);
+}
+
+.main_color_btn{
+  margin-top: 1.5rem;
+  background-color: var(--main-color);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.3rem;
+}
+
+input{
+  margin-top: 1rem;
+  padding: 0.5rem;
+ border: solid thin var(--main-color);
+ /* border: none; */
+ border-radius: 0.3rem;
+ /* box-shadow: .1rem .1rem 0.2rem var(--main-color); */
+width: 20rem;
+
+}
+select{
+  
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  width: 21rem;
+  background-color: var(--main-color);
+  border: none;
+}
+
+.page_title{
+  color: var(--main-color);
 }
 
 .hidden{

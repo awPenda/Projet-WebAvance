@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import React from 'react';
-import logo from './assets/img/logoNooblar.png';
+import logo from './assets/img/logoNooblar.svg';
 import fakepp from './assets/img/fakePP.png';
 import './App.css';
 import toggleSideBar from './Global'
@@ -8,10 +8,13 @@ import {makeBubbles} from './Global'
 
 
 import SideBar from './components/SideBar';
+import ConnectionPage from './components/ConnectionPage';
+import RegistrationPage from './components/RegistrationPage';
+
 
 const user_data = {
   name: "Rémy Covillon",
-  description: "Student at CESI, need help for",
+  description: "Student, need help for maths...",
   email: "rcovillon@gmail.com",
   student: 1,
   pp: fakepp
@@ -37,7 +40,8 @@ function App() {
 
 
       <div className='App-element'>
-
+        <ConnectionPage/>
+        <RegistrationPage/>
       </div>
 
       <SideBar user_data={user_data} hidden={sideBarHidden} />

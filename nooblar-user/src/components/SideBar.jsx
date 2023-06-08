@@ -102,9 +102,9 @@ export default function SideBar({user_data, hidden}) {
             </button>
             <div className='profile-text'>
                 <b>{user_data.name}</b>
-                <br />                
-                {user_data.description}
-                <br />               
+                <div>
+                  {user_data.description}
+                </div>           
                 <input type="button" value="Edit Profile" className="button-link-accent"/>
             </div>
         </div>
