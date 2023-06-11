@@ -1,7 +1,8 @@
-import fakepp from '../assets/img/fakePP.png';
 import NotifBox from './NotifBox';
 
-import toggleSideBar from '../Global'
+import Icons from './Icons';
+import {makeBubbles, toggleSideBarNotifs, toggleSideBarProfile} from '../Global'
+
 
 const user_notifs = [
     {
@@ -90,27 +91,20 @@ const user_notifs = [
     },
   ]
 
-export default function SideBar({user_data, hidden}) {
+
+export default function SideBarNotifs(user_data, hidden){
     let listNotifs = [];
-
-    return (
-      <div id="SideBar" className="SideBar" style={{visibility: hidden ? "hidden" : "visible"}}>
-        <div className="SideBar-profile">
-            <button onClick={toggleSideBar} className='button-pp'>
-              {/* TODO -> replace the src by {user_data.pp} */}
-              <img src={fakepp} className="User-pp" alt="user profile pic" />
-            </button>
-            <div className='profile-text'>
-                <b>{user_data.name}</b>
-                <div>
-                  {user_data.description}
-                </div>           
-                <input type="button" value="Edit Profile" className="button-link-accent"/>
+    return(
+        <div id="SideBarNotifs" className="SideBar-notifs SideBar" style={{visibility: hidden ? "hidden" : "visible"}}>
+            {/* Notifications */}
+            <div className='notif-header'>
+                <button onClick={toggleSideBarNotifs} className='button-close'>
+                    <Icons type="close_ico"/>
+                    Close
+                </button>
+                <Icons type="notif_ico"/>
             </div>
-        </div>
-        <div className="SideBar-notifs">
-            Notifications
-
+            
             <div className='SideBar-notifList'>
                 {user_notifs.forEach((notif)=>{
                     listNotifs.push(
@@ -119,12 +113,10 @@ export default function SideBar({user_data, hidden}) {
                 })}
                 {listNotifs}
             </div>
-            
-
-
           <div>
         </div>
+
       </div>
-    </div>
-    )
-  }
+
+    );
+}

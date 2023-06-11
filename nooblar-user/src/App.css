@@ -1,13 +1,14 @@
 :root {
-  --text-color: #18180c;
-  --bg-color: #fafaf5;
-  --main-color: #bae996;
-  --accent-color: #f4ab3e;
+  --text-color: 24, 24, 12 /*#18180c*/;
+  --bg-color: 252, 250, 247 /*#FCFAF7 /*#FFFDFA <-- good*/;
+  --main-color: 106, 205, 116 /*#6ACD74*/;
+  --main-darker-color: 19, 43, 18 /*#132B12*/;
+  --accent-color: 235, 141, 52 /*#EB8D34*/;
 }
 
 body {
-  background-color: var(--bg-color); 
-  color: var(--text-color);
+  background-color: rgb(var(--bg-color));
+  color: rgb(var(--text-color));
 
   min-height: 100%;
   min-width: 100%;
@@ -29,8 +30,9 @@ body {
 .App-header {
   display: flex;
   justify-content:space-between;
+  align-items: center;
   padding: 1rem;
-  
+
 }
 
 .App-header .App-logo-container {
@@ -43,18 +45,31 @@ body {
 }
 
 .App-header .App-logo-container .App-title{
-  color: var(--accent-color);
+  color: rgb(var(--accent-color));
 }
 
-.App-header .User-pp {
+.App-header .App-buttons-container{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+.App-header .App-buttons-container .notif_ico {
+  color: rgb(var(--accent-color));
+  width: 3rem;
+  margin-left: 0.3rem;
+}
+
+.App-header .App-buttons-container .User-pp {
   border-radius: 50%;
   width: 3rem;
+  margin-left: 0.3rem;
 }
+
 
 
 
 .App-link {
-  color: var(--accent-color);
+  color: rgb(var(--accent-color));
 }
 
 .SideBar{
@@ -64,14 +79,13 @@ body {
   position: absolute;
   right: 0;
 
-  height: -moz-available;          /* WebKit-based browsers will ignore this. */
-  height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-  height: fill-available;
-  
+  height: 100%;
+  min-width: 70%;
+
 }
-.SideBar .SideBar-profile{
+.SideBar.SideBar-profile{
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
   padding-top: 0.5rem;
   padding-right: 1rem;
   padding-left: 1rem;
@@ -79,57 +93,93 @@ body {
   align-items: center;
 
 }
-.SideBar .SideBar-profile .profile-text{
+.SideBar.SideBar-profile .button-close{
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+}
+.SideBar.SideBar-profile .Profile-box{
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  align-items: center;
+}
+.SideBar.SideBar-profile .Profile-box .profile-text{
   padding: 1rem;
   text-overflow: ellipsis;
 }
-.SideBar .SideBar-profile .User-pp {
+.SideBar.SideBar-profile .Profile-box .User-pp {
   border-radius: 50%;
   width: 5rem;
   height: 5rem;
 }
-.SideBar .SideBar-notifs {
+.SideBar.SideBar-notifs {
   text-align: center;
-  color: var(--main-color);
+  color: rgb(var(--main-color));
   padding-right: 1rem;
   padding-left: 1rem;
   padding-bottom: 1rem;
 }
+.SideBar.SideBar-notifs .notif-header {
+  display: flex;
+  align-items: center;
 
-.SideBar .SideBar-notifList {
-  border-top: thin solid var(--main-color);
+  justify-items: center;
+  flex-direction: column;
+}
+.SideBar.SideBar-notifs .notif-header .button-close{
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+}
+.SideBar.SideBar-notifs .notif-header .notif_ico{
+
+  display: flex;
+  align-self: center;
+}
+
+
+.SideBar.SideBar-notifList {
+  border-top: thin solid rgb(var(--main-color));
   overflow-y: scroll;
-  max-height: 34rem;
+  /*max-height: 34rem;*/
+  
 }
 
 .NotifBox {
-  color: var(--text-color);
+  color: rgb(var(--text-color));
+  background-color: rgb(var(--bg-color));
   list-style-type: none;
+  align-items: center;
   text-align: left;
 
   border-radius: 0.3rem;
-  border: solid thin;
+  /* border: solid thin; */
 
-  padding: 0.3rem;
-  margin-top: 0.4rem;
+  box-shadow: 2px 2px 6px -3px rgba(var(--main-darker-color), 0.25);
+
+  padding: 1rem;
+  /* padding-left: 1rem;
+  padding-right: 1rem; */
+  margin-top: 0.5rem;
 
   display: flex;
   justify-content: space-between;
 
 }
-.NotifBox.info_color_notif {
- border: solid thin var(--main-color);
+/* .NotifBox.info_color_notif {
+ border: solid thin rgb(var(--main-color));
 }
 .NotifBox.warning_color_notif {
-  border: solid thin var(--accent-color);
-}
+  border: solid thin rgb(var(--accent-color));
+} */
 
 
 .App-element{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
 
 }
 .card_form {
@@ -141,26 +191,38 @@ body {
   width: fit-content;
   padding: 2rem;
   margin: 1rem;
-  border-radius: 0.3rem;
-  box-shadow: 0.5rem 1rem 3rem -2rem var(--main-color);
+  border-radius: 12px;
+  box-shadow: 3px 5px 20px -7px rgba(var(--main-darker-color), 0.25);
+}
+
+.switchConnectRegister {
+  display: flex;
+  align-items: baseline;
 }
 
 .main_color_btn{
   margin-top: 1.5rem;
-  background-color: var(--main-color);
+  background-color: rgb(var(--main-color));
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
   font-weight: bold;
-  border: none;
+  border: solid thin rgb(var(--main-color));
   border-radius: 0.3rem;
+}
+
+.main_color_btn:hover{
+  cursor: pointer;
+  box-shadow: inset 0rem 0rem 2rem 0.6rem white;
+ /* fill-opacity: 0.4; */
+  border: solid thin rgb(var(--main-color));
 }
 
 input{
   margin-top: 1rem;
   padding: 0.5rem;
- border: solid thin var(--main-color);
+ border: solid thin rgb(var(--main-color));
  /* border: none; */
  border-radius: 0.3rem;
  /* box-shadow: .1rem .1rem 0.2rem var(--main-color); */
@@ -168,43 +230,90 @@ width: 20rem;
 
 }
 select{
-  
+
   margin-top: 1rem;
   padding: 0.5rem;
   border-radius: 0.3rem;
   width: 21rem;
-  background-color: var(--main-color);
+  background-color: rgb(var(--main-color));
   border: none;
 }
 
 .page_title{
-  color: var(--main-color);
+  color: rgb(var(--main-color));
 }
 
 .hidden{
   display: none;
 }
 .warning_ico{
-  color: var(--accent-color);
+  color: rgb(var(--accent-color));
 }
 .info_ico{
-  color: var(--main-color);
+  color: rgb(var(--main-color));
 }
 .trash_ico{
-  color: var(--accent-color);
+  color: rgb(var(--accent-color));
 }
 
 .button-link-accent{
-  color: var(--accent-color);
+  color: rgb(var(--accent-color));
   border-radius: 0.3rem;
   border: none;
   background-color: transparent;
   text-decoration: underline;
 
 }
-.button-pp {
+.button-link-accent:hover{
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.button-link-main{
+  color: rgb(var(--main-color));
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  width: min-content;
+}
+.button-link-main:hover{
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.button-transparent {
   background-color: transparent;
   border: none;
+}
+.button-transparent:hover {
+  cursor: pointer;
+  opacity: 0.3;
+  border: none;
+}
+
+.button-close{
+  color: rgb(var(--accent-color));
+  background-color: transparent;
+  border: none;
+
+  padding: 0.7rem;
+
+  display: flex;
+  align-items: center;
+}
+.button-close:hover{
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.DefaultPage{
+  visibility: visible !important;
+}
+.Page{
+  visibility: hidden;
+}
+.HiddenPage{
+  visibility: hidden;
 }
 
 @keyframes App-logo-spin {

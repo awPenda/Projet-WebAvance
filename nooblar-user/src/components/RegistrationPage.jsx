@@ -1,10 +1,11 @@
 import Icons from './Icons';
+import {makeBubbles, toggleSideBarNotifs, toggleSideBarProfile, displayElement,displayConnectionPage} from '../Global'
 
-export default function RegistrationPage({id, priority, title, body}) {
+export default function RegistrationPage({hidden}) {
 
 
     return (
-      <div className="RegistrationPage">
+      <div id="RegistrationPage" className="RegistrationPage" style={{display:"none"}}>
 
         <form action="submit" className='card_form'>
 
@@ -20,6 +21,10 @@ export default function RegistrationPage({id, priority, title, body}) {
           
             <button type="submit" className='main_color_btn'>Registration</button>
 
+            <div className='switchConnectRegister'>
+            Already have an account ?
+            <input type="button" value="Connect here" className='button-link-main' onClick={displayConnectionPage}/>
+          </div>
         </form>
       </div>
     )

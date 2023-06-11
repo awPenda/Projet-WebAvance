@@ -1,17 +1,34 @@
-export default function toggleSideBar(){
-    const e = document.getElementById('SideBar');
-    if(e.style.visibility == "visible"){
-      e.style.visibility = "hidden";
-    } else {
-      e.style.visibility = "visible";
-    }
+function displayHideElement(e){
+  if(e.style.visibility == "visible"){
+    e.style.visibility = "hidden";
+  } else {
+    e.style.visibility = "visible";
+  }
 }
 
-export function displayElement(e){
-    
+export function toggleSideBarProfile(){
+  const e = document.getElementById('SideBarProfile');
+  displayHideElement(e);
+}
+export function toggleSideBarNotifs(){
+  const e = document.getElementById('SideBarNotifs');
+  displayHideElement(e);
 }
 
-export function makeBubbles(){
-    console.log('BUBBLEEES!');
+export function displayConnectionPage(){
+  const e = document.getElementById('ConnectionPage');
+  
+  const f = document.getElementById('RegistrationPage')
+  f.style.display = "none";
+  e.style.display = "flex";
+
+}
+
+export function displayRegisterPage(){
+  const e = document.getElementById('RegistrationPage');
+
+  const f = document.getElementById('ConnectionPage');
+  f.style.display = "none";
+  e.style.display = "flex";
 }
 

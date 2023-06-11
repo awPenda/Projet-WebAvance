@@ -1,10 +1,10 @@
 import Icons from './Icons';
+import {toggleSideBarNotifs, toggleSideBarProfile, displayElement,displayRegisterPage} from '../Global'
 
-export default function ConnectionPage({id, priority, title, body}) {
 
-
+export default function ConnectionPage({hidden}) {
     return (
-      <div className="ConnectionPage">
+      <div id="ConnectionPage" className="ConnectionPage" style={{display:"flex"}}>
 
         <form action="submit" className='card_form'>
 
@@ -15,6 +15,10 @@ export default function ConnectionPage({id, priority, title, body}) {
           
           <button type="submit" className='main_color_btn'>Connection</button>
 
+          <div className='switchConnectRegister'>
+            No account ?
+            <input type="button" value="Register here" className='button-link-main' onClick={displayRegisterPage}/>
+          </div>
         </form>
       </div>
     )
