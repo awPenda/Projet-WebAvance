@@ -1,6 +1,7 @@
 import fakepp from '../assets/img/fakePP.png';
 import Icons from './Icons';
-import {makeBubbles, toggleSideBarNotifs, toggleSideBarProfile} from '../Global'
+import EditProfile from './EditProfile';
+import {makeBubbles, toggleSideBarNotifs,displayEditProfile, toggleSideBarProfile} from '../Global'
 
 
 export default function SideBarProfile({user_data, hidden}){
@@ -13,7 +14,7 @@ export default function SideBarProfile({user_data, hidden}){
             </button>
             
             {/* TODO -> replace the src by {user_data.pp} */}
-            <div className='Profile-box'>
+            <div className='Profile-box' id="Profile-box">
                 <img src={fakepp} className="User-pp" alt="user profile pic" />
                 
                 <div className='profile-text'>
@@ -21,9 +22,13 @@ export default function SideBarProfile({user_data, hidden}){
                     <div>
                     {user_data.description}
                     </div>           
-                    <input type="button" value="Edit Profile" className="button-link-accent"/>
+                    <input type="button" value="Edit Profile" className="button-link-accent" onClick={displayEditProfile}/>
                 </div>
+
+                
             </div>
+            
+            <EditProfile/>
         </div>
     );
 }

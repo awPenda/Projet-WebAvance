@@ -32,3 +32,17 @@ export function displayRegisterPage(){
   e.style.display = "flex";
 }
 
+export function displayEditProfile() {
+  const e = document.getElementById('EditProfile');
+  const f = document.getElementById('Profile-box');
+  if ( e.style.display ==  "flex") {
+    e.style.display = "none";
+    f.style.display = "flex";
+    
+  } else {
+    e.style.display = "flex";
+    f.style.display = "none";
+    
+  }
+  
+}
