@@ -2,12 +2,10 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-function generateAuthToken(user) {
-  // Génère un jeton JWT avec l'ID de l'utilisateur comme payload
-  const authToken = jwt.sign({ userId: user.id }, 'secret-key');
-
-  return authToken;
-}
+const generateAuthToken = (user) => {
+  const token = jwt.sign({ id: user.id }, 'secret-key');
+  return token;
+};
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
@@ -21,65 +19,68 @@ function authenticateToken(req, res, next) {
     if (err) {
       return res.sendStatus(403);
     }
-    req.userId = user.userId;
+    req.userId = user.id; // Utilisez user.id au lieu de user.userId
     next();
   });
 }
 
-async function register(req, res) {
-  const { username, password } = req.body;
-
+const register = async (req, res) => {
   try {
-    const existingUser = await User.findOne({ where: { username } });
+    const { name, student, email, password } = req.body;
+
+    // Vérifier si l'utilisateur existe déjà
+    const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
-      return res.status(400).json({ error: 'Username already exists' });
+      return res.status(409).json({ message: 'User already exists' });
     }
 
+    // Hasher le mot de passe
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = await User.create({ username, password: hashedPassword });
+    // Créer un nouvel utilisateur
+    const newUser = await User.create({
+      name,
+      student,
+      email,
+      password: hashedPassword,
+    });
 
-    // Générer le jeton d'authentification
-    const authToken = generateAuthToken(newUser);
-
-    // Mettre à jour le champ 'token' de l'utilisateur avec le jeton d'authentification
-    await User.update({ token: authToken }, { where: { id: newUser.id } });
-
-    return res.json({ message: 'User registered successfully', user: newUser, authToken });
+    return res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     console.error('Error registering user:', error);
-    return res.status(500).json({ error: 'Error registering user', detailedError: error.message });
+    return res.status(500).json({ message: 'Error registering user' });
   }
-}
+};
 
-async function login(req, res) {
-  const { username, password } = req.body;
-
+const login = async (req, res) => {
   try {
-    // Vérifie si l'utilisateur existe dans la base de données
-    const existingUser = await User.findOne({ where: { username } });
-    if (!existingUser) {
-      return res.status(400).json({ error: 'Invalid username or password' });
+    const { email, password } = req.body;
+
+    // Vérifier si l'utilisateur existe
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Vérifie si le mot de passe est correct
-    const isPasswordValid = await bcrypt.compare(password, existingUser.password);
-    if (!isPasswordValid) {
-      return res.status(400).json({ error: 'Invalid username or password' });
+    // Vérifier le mot de passe
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // L'utilisateur est authentifié, génère un jeton d'authentification (ex: JWT) pour la session
-    const authToken = generateAuthToken(existingUser);
+    // Générer le token d'authentification
+    const token = generateAuthToken(user);
 
-    // Mettre à jour le champ 'token' de l'utilisateur avec le jeton d'authentification
-    await User.update({ token: authToken }, { where: { id: existingUser.id } });
+    // Mettre à jour le token de l'utilisateur dans la base de données
+    user.token = token;
+    await user.save();
 
-    return res.json({ message: 'User logged in successfully', authToken });
+    return res.status(200).json({ authToken: token });
   } catch (error) {
     console.error('Error logging in user:', error);
-    return res.status(500).json({ error: 'Error logging in user', detailedError: error.message });
+    return res.status(500).json({ message: 'Error logging in user' });
   }
-}
+};
 
 async function logout(req, res) {
   try {
@@ -94,7 +95,7 @@ async function logout(req, res) {
     }
 
     // Supprimer complètement le champ 'token' de l'utilisateur
-    await User.update({ token: null }, { where: { id: req.userId } });
+    await user.update({ token: null });
 
     return res.json({ message: 'User logged out successfully' });
   } catch (error) {
@@ -102,6 +103,7 @@ async function logout(req, res) {
     return res.status(500).json({ error: 'Error logging out user', detailedError: error.message });
   }
 }
+
 async function updateUser(req, res) {
   const { username, password } = req.body;
 
@@ -129,6 +131,7 @@ async function updateUser(req, res) {
     return res.status(500).json({ error: 'Error updating user', detailedError: error.message });
   }
 }
+
 async function getUser(req, res) {
   try {
     const user = await User.findByPk(req.userId, { attributes: ['username'] });
@@ -144,6 +147,4 @@ async function getUser(req, res) {
   }
 }
 
-
-
-module.exports = { register, login, logout, authenticateToken, updateUser,getUser };
+module.exports = { register, login, logout, authenticateToken, updateUser, getUser };

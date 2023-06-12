@@ -2,18 +2,31 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const User = sequelize.define('User', {
-  username: {
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  student: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  email: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+    validate: {
+      isEmail: {
+        msg: 'Invalid email address',
+      },
+    },
   },
   password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   token: {
-    type: DataTypes.STRING, // ou tout autre type approprié pour le jeton d'authentification
-    allowNull: true, // permettant à la valeur d'être nulle lorsqu'il n'y a pas de jeton
+    type: DataTypes.STRING,
+    allowNull: true,
   },
 });
 
