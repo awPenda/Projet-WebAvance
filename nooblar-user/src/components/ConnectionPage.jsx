@@ -1,25 +1,55 @@
-import Icons from './Icons';
-import {toggleSideBarNotifs, toggleSideBarProfile, displayElement,displayRegisterPage} from '../Global'
+import React from 'react';
+import axios from 'axios';
+import { displayRegisterPage } from '../Global';
 
+export default function ConnectionPage({ hidden }) {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
-export default function ConnectionPage({hidden}) {
-    return (
-      <div id="ConnectionPage" className="ConnectionPage" style={{display:"flex"}}>
+  const handleLogin = (e) => {
+    e.preventDefault();
 
-        <form action="submit" className='card_form'>
+    // Envoie des données de connexion au backend
+    axios
+      .post('http://localhost:8000/login', { email, password })
+      .then((response) => {
+        // Traitement de la réponse du backend (si nécessaire)
+        console.log(response.data);
+      })
+      .catch((error) => {
+        // Traitement de l'erreur en cas d'échec
+        console.error(error);
+      });
+  };
 
-          <h2 className='page_title'>Connection</h2>
+  return (
+    <div id="ConnectionPage" className="ConnectionPage" style={{ display: hidden ? 'none' : 'flex' }}>
+      <form onSubmit={handleLogin} className="card_form">
+        <h2 className="page_title">Connection</h2>
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit" className="main_color_btn">
+          Connection
+        </button>
 
-          <input type="email" id="email" pattern=".+@globex\.com" size="30" placeholder='Email' required/> 
-          <input type="password" name="" id="" placeholder='password'/>
-          
-          <button type="submit" className='main_color_btn'>Connection</button>
-
-          <div className='switchConnectRegister'>
-            No account ?
-            <input type="button" value="Register here" className='button-link-main' onClick={displayRegisterPage}/>
-          </div>
-        </form>
-      </div>
-    )
-  }
+        <div className="switchConnectRegister">
+          No account ?
+          <input type="button" value="Register here" className="button-link-main" onClick={displayRegisterPage} />
+        </div>
+      </form>
+    </div>
+  );
+}
