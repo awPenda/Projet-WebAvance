@@ -3,13 +3,13 @@ import React from 'react';
 import logo from './assets/img/VectorLogoNooblar.svg';
 import fakepp from './assets/img/fakePP.png';
 import './App.css';
-import {makeBubbles, toggleSideBarNotifs, toggleSideBarProfile} from './Global'
+import { makeBubbles, toggleSideBarNotifs, toggleSideBarProfile } from './Global'
 import Icons from './components/Icons';
-import Profile from './components/SideBarProfile';
-import Notifs from './components/SideBarNotifs';
+import SideBarProfile from './components/SideBarProfile';
+import SideBarNotifs from './components/SideBarNotifs';
 import ConnectionPage from './components/ConnectionPage';
 import RegistrationPage from './components/RegistrationPage';
-
+import ListUsers from './components/ListUsers';
 
 const user_data = {
   name: "Rémy Covillon",
@@ -19,6 +19,31 @@ const user_data = {
   pp: fakepp
 
 }
+
+const other_users_data = [
+  {
+    name: "Rémy Covillon",
+    description: "Student, need help for maths...",
+    email: "rcovillon@gmail.com",
+    student: 1,
+    pp: fakepp
+  },
+  {
+    name: "Rémy Covillon",
+    description: "Student, need help for maths...",
+    email: "rcovillon@gmail.com",
+    student: 1,
+    pp: fakepp
+  },
+  {
+    name: "Rémy Covillon",
+    description: "Student, need help for maths...",
+    email: "rcovillon@gmail.com",
+    student: 1,
+    pp: fakepp
+  },
+
+]
 
 function App() {
   let isHidden = true; // "hidden" or "visible"
@@ -30,10 +55,10 @@ function App() {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Nooblar</h1>
         </div>
-        
+
         <div className='App-buttons-container'>
           <button onClick={toggleSideBarNotifs} className='button-transparent'>
-            <Icons type="notif_ico"/>
+            <Icons type="notif_ico" />
           </button>
           <button onClick={toggleSideBarProfile} className='button-transparent'>
             <img src={user_data.pp} className="User-pp" alt="user profile pic" />
@@ -42,12 +67,13 @@ function App() {
       </header>
 
       <div className='App-element'>
-        <ConnectionPage/>
-        <RegistrationPage/>
+        <ConnectionPage />
+        <RegistrationPage hidden={isHidden} />
+        <ListUsers other_users_data={other_users_data} />
       </div>
 
-      <Profile user_data={user_data} hidden={isHidden}/>
-      <Notifs user_data={user_data} hidden={isHidden}/>
+      <SideBarProfile user_data={user_data} hidden={isHidden} />
+      <SideBarNotifs user_data={user_data} hidden={isHidden} />
     </div>
   );
 }
