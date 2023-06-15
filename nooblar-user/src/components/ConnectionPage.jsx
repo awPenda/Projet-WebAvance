@@ -18,8 +18,15 @@ export default function ConnectionPage({ hidden }) {
     axios
       .post('http://localhost:8000/login', { email, password })
       .then((response) => {
-        // Traitement de la réponse du backend (si nécessaire)
-        console.log(response.data);
+        // Récupérer le token de la réponse du backend
+        const authToken = response.data.authToken;
+
+        // Stocker le token dans le localStorage
+        localStorage.setItem('token', authToken);
+
+        // Effectuer d'autres actions après la connexion réussie
+
+        console.log('Successfully logged in');
       })
       .catch((error) => {
         // Traitement de l'erreur en cas d'échec

@@ -37,7 +37,7 @@ export default function RegistrationPage({ hidden }) {
           <option value="false">Tutor</option>
         </select>
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input type="password" placeholder="Password" size="8" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
         <button type="submit" className="main_color_btn">
           Registration
