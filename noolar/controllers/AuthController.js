@@ -19,7 +19,7 @@ function authenticateToken(req, res, next) {
     if (err) {
       return res.sendStatus(403);
     }
-    req.userId = user.id; // Utilisez user.id au lieu de user.userId
+    req.userId = user.id;
     next();
   });
 }
@@ -28,16 +28,13 @@ const register = async (req, res) => {
   try {
     const { name, student, email, password } = req.body;
 
-    // Vérifier si l'utilisateur existe déjà
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(409).json({ message: 'User already exists' });
     }
 
-    // Hasher le mot de passe
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Créer un nouvel utilisateur
     const newUser = await User.create({
       name,
       student,
@@ -56,22 +53,18 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Vérifier si l'utilisateur existe
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Vérifier le mot de passe
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Générer le token d'authentification
     const token = generateAuthToken(user);
 
-    // Mettre à jour le token de l'utilisateur dans la base de données
     user.token = token;
     await user.save();
 
@@ -94,7 +87,6 @@ async function logout(req, res) {
       return res.status(400).json({ error: 'User is already logged out' });
     }
 
-    // Supprimer complètement le champ 'token' de l'utilisateur
     await user.update({ token: null });
 
     return res.json({ message: 'User logged out successfully' });
@@ -105,22 +97,37 @@ async function logout(req, res) {
 }
 
 async function updateUser(req, res) {
-  const { username, password } = req.body;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  const { name, student, email, password, newPassword} = req.body;
 
   try {
-    const user = await User.findByPk(req.userId);
+    const user = await User.findOne({ where: { token } });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    if (username) {
-      user.username = username;
+    if (name) {
+      user.name = name;
     }
 
-    if (password) {
-      const hashedPassword = await bcrypt.hash(password, 10);
+    if (password && newPassword) {
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        return res.status(400).json({ message: "Incorrect password" });
+      }
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
       user.password = hashedPassword;
+    }
+    if (req.file) {
+      user.image = req.file.buffer;
+    }
+    if (student) {
+      user.student = student;
+    }
+    if (email) {
+      user.email = email;
     }
 
     await user.save();

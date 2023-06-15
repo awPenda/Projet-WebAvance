@@ -2,6 +2,10 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const User = sequelize.define('User', {
+  image:{
+    type: DataTypes.BLOB,
+    allowNull: true,
+  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,

@@ -4,6 +4,15 @@ const User = require('./models/User');
 const sequelize = require('./config/database');
 const AuthController = require('./controllers/AuthController');
 const cors = require('cors');
+const multer = require('multer');
+
+// Configuration de Multer pour le téléchargement des fichiers d'image
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // Limite de taille du fichier à 5 Mo
+  },
+});
 
 app.use(express.json({ extended: true }));
 app.use(cors());
@@ -22,12 +31,10 @@ app.get('/', (req, res) => {
 
 app.post('/register', AuthController.register);
 app.post('/login', AuthController.login);
-
-// Utilisez le middleware authenticateToken ici pour toutes les routes nécessitant une authentification
 app.post('/logout', AuthController.authenticateToken, AuthController.logout);
+app.put('/updateuser', AuthController.authenticateToken, upload.single('edit-profilepic'), AuthController.updateUser);
+app.get('/read', AuthController.authenticateToken, AuthController.getUser);
 
 app.listen(8000, () => {
   console.log('Server started on port 8000');
 });
-app.put('/updateuser', AuthController.authenticateToken, AuthController.updateUser);
-app.get('/read', AuthController.authenticateToken, AuthController.getUser);
