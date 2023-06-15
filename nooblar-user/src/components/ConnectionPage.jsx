@@ -26,11 +26,13 @@ export default function ConnectionPage({ hidden }) {
 
         // Effectuer d'autres actions après la connexion réussie
 
-        console.log('Successfully logged in');
+        window.alert('Successfully logged in');
+        console.log('Successfully logged in ;)');
       })
       .catch((error) => {
         // Traitement de l'erreur en cas d'échec
         console.error(error);
+        window.alert('login in failed T-T');
       });
   };
 

@@ -14,7 +14,7 @@ import ConnectionPage from './components/ConnectionPage';
 import RegistrationPage from './components/RegistrationPage';
 import ListUsers from './components/ListUsers';
 
-const user_data = {
+let user_data = {
   name: "Rémy Covillon",
   description: "Student, need help for maths...",
   email: "rcovillon@gmail.com",
