@@ -1,7 +1,7 @@
 import fakepp from '../assets/img/fakePP.png';
 import Icons from './Icons';
 import EditProfile from './EditProfile';
-import { makeBubbles, toggleSideBarNotifs, displayEditProfile, toggleSideBarProfile } from '../Global'
+import { toggleSideBarNotifs, displayEditProfile, toggleSideBarProfile } from '../Global'
 
 
 export default function SideBarProfile({ user_data, hidden }) {
@@ -16,6 +16,11 @@ export default function SideBarProfile({ user_data, hidden }) {
             {/* TODO -> replace the src by {user_data.pp} */}
             <div className='Profile-box' id="Profile-box">
                 <img src={fakepp} className="User-pp" alt="user profile pic" />
+
+                <button className='button-logout'>
+                    Log out
+                    <Icons type={"logout_ico"} />
+                </button>
 
                 <div className='profile-text'>
                     <b>{user_data.name}</b>

@@ -2,6 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import { displayRegisterPage } from '../Global';
 
+/**TODO
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 export default function ConnectionPage({ hidden }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');

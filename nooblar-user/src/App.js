@@ -2,6 +2,9 @@ import { createContext, useContext, useState } from 'react';
 import React from 'react';
 import logo from './assets/img/VectorLogoNooblar.svg';
 import fakepp from './assets/img/fakePP.png';
+import fakeppdidi from './assets/img/fakeppdidiane.jpeg';
+import fakeppalex from './assets/img/fakeppalex.jpeg';
+import fakepplundy from './assets/img/fakepplunndy.jpeg';
 import './App.css';
 import { makeBubbles, toggleSideBarNotifs, toggleSideBarProfile } from './Global'
 import Icons from './components/Icons';
@@ -22,25 +25,25 @@ const user_data = {
 
 const other_users_data = [
   {
-    name: "Rémy Covillon",
-    description: "Student, need help for maths...",
-    email: "rcovillon@gmail.com",
-    student: 1,
-    pp: fakepp
+    name: "Didiane Brunelle",
+    description: "Excellent German teacher ;)",
+    email: "dbrunelle@gmail.com",
+    student: 0,
+    pp: fakeppdidi
   },
   {
-    name: "Rémy Covillon",
-    description: "Student, need help for maths...",
-    email: "rcovillon@gmail.com",
-    student: 1,
-    pp: fakepp
+    name: "Alexandre Chalifour",
+    description: "Math expert",
+    email: "alexmath@gmail.com",
+    student: 0,
+    pp: fakeppalex
   },
   {
-    name: "Rémy Covillon",
-    description: "Student, need help for maths...",
-    email: "rcovillon@gmail.com",
+    name: "Lundy Lépicier",
+    description: "Stoupid",
+    email: "lundyyyy@gmail.com",
     student: 1,
-    pp: fakepp
+    pp: fakepplundy
   },
 
 ]
@@ -69,7 +72,7 @@ function App() {
       <div className='App-element'>
         <ConnectionPage />
         <RegistrationPage hidden={isHidden} />
-        <ListUsers other_users_data={other_users_data} />
+        <ListUsers other_users_data={other_users_data} isTutor={user_data.student} date={"date"} />
       </div>
 
       <SideBarProfile user_data={user_data} hidden={isHidden} />

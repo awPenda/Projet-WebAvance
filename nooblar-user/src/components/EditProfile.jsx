@@ -1,6 +1,4 @@
-import fakepp from '../assets/img/fakePP.png';
-import Icons from './Icons';
-import { makeBubbles, toggleSideBarNotifs, displayEditProfile, toggleSideBarProfile } from '../Global'
+import { displayEditProfile } from '../Global'
 
 
 export default function SideBarProfile({ user_data, hidden }) {

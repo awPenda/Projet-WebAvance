@@ -1,7 +1,7 @@
 import NotifBox from './NotifBox';
 
 import Icons from './Icons';
-import { makeBubbles, toggleSideBarNotifs, toggleSideBarProfile } from '../Global'
+import { toggleSideBarNotifs } from '../Global'
 
 
 const user_notifs = [
