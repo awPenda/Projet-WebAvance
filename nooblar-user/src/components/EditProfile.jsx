@@ -89,7 +89,7 @@ export default function SideBarProfile({ hidden }) {
         <div id="EditProfile" className="EditProfile" style={{ display: "none" }}>
             <form action="editprofile" className="editProfile-form" onSubmit={handleSubmit}>
                 <label htmlFor="edit-profilepic">Profile picture</label>
-                <input type="file" name="edit-profilepic" id="edit-profilepic" /*onChange={handleProfilePicChange}*/ onChange={(e) => uploadPP(e)} />
+                <input type="file" accept="image/*" name="edit-profilepic" id="edit-profilepic" /*onChange={handleProfilePicChange}*/ onChange={(e) => uploadPP(e)} />
                 <input type="text" placeholder="Name" value={name} onChange={handleNameChange} />
                 <select name="student" id="student" value={student} onChange={handleStudentChange}>
                     <option value="true">Student</option>
