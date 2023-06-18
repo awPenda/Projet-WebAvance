@@ -3,13 +3,14 @@ import React from 'react';
 import logo from './assets/img/VectorLogoNooblar.svg';
 import fakepp from './assets/img/fakePP.png';
 import './App.css';
-import { makeBubbles, toggleSideBarNotifs, toggleSideBarProfile } from './Global'
+import {toggleSideBarNotifs, toggleSideBarProfile } from './Global'
 import Icons from './components/Icons';
 import SideBarProfile from './components/SideBarProfile';
 import SideBarNotifs from './components/SideBarNotifs';
 import ConnectionPage from './components/ConnectionPage';
 import RegistrationPage from './components/RegistrationPage';
 import ListUsers from './components/ListUsers';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 let user_data = {
   name: "Rémy Covillon",
@@ -31,6 +32,10 @@ function App() {
           <h1 className="App-title">Nooblar</h1>
         </div>
 
+        <a href="/">
+          <Icons type="home_ico" />
+        </a>
+
         <div className='App-buttons-container'>
           <button onClick={toggleSideBarNotifs} className='button-transparent'>
             <Icons type="notif_ico" />
@@ -42,13 +47,29 @@ function App() {
       </header>
 
       <div className='App-element'>
-        <ConnectionPage />
-        <RegistrationPage hidden={isHidden} />
-        <ListUsers isStudent={user_data.student} date={"date"} />
+        <BrowserRouter>
+          <Routes>
+              {/* <Route index element={<Home />} /> */}
+              <Route path="/connection" element={<ConnectionPage />} />
+              <Route path="/registration" element={<RegistrationPage />} />
+              <Route path="/findsession" element={<ListUsers isStudent={user_data.student} date={"date"} />} />
+              {/* <Route path="*" element={<NoPage />} /> */}
+          </Routes>
+        </BrowserRouter>
+
       </div>
 
       <SideBarProfile user_data={user_data} hidden={isHidden} />
       <SideBarNotifs user_data={user_data} hidden={isHidden} />
+
+
+
+
+      
+
+
+
+
     </div>
   );
 }

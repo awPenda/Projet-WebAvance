@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import Icons from './Icons';
-import { makeBubbles, toggleSideBarNotifs, toggleSideBarProfile, displayElement, displayConnectionPage } from '../Global';
-
-export default function RegistrationPage({ hidden }) {
+export default function RegistrationPage() {
   const [name, setName] = useState('');
   const [student, setStudent] = useState(true);
   const [email, setEmail] = useState('');
@@ -29,7 +26,7 @@ export default function RegistrationPage({ hidden }) {
   };
 
   return (
-    <div id="RegistrationPage" className="RegistrationPage" style={{ display: hidden ? 'none' : 'block' }}>
+    <div id="RegistrationPage" className="RegistrationPage">
       <form onSubmit={handleRegistration} className="card_form">
         <h2 className="page_title">Register</h2>
 
@@ -48,7 +45,7 @@ export default function RegistrationPage({ hidden }) {
 
         <div className="switchConnectRegister">
           Already have an account?
-          <input type="button" value="Connect here" className="button-link-main" onClick={displayConnectionPage} />
+          <a href="/connection" className="button-link-main">Connect here</a>
         </div>
       </form>
     </div>

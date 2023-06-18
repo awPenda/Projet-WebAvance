@@ -7,7 +7,7 @@ import { displayRegisterPage } from '../Global';
  * @param {*} param0 
  * @returns 
  */
-export default function ConnectionPage({ hidden }) {
+export default function ConnectionPage() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -37,7 +37,7 @@ export default function ConnectionPage({ hidden }) {
   };
 
   return (
-    <div id="ConnectionPage" className="ConnectionPage" style={{ display: hidden ? 'none' : 'flex' }}>
+    <div id="ConnectionPage" className="ConnectionPage">
       <form onSubmit={handleLogin} className="card_form">
         <h2 className="page_title">Connection</h2>
         <input
@@ -61,7 +61,7 @@ export default function ConnectionPage({ hidden }) {
 
         <div className="switchConnectRegister">
           No account ?
-          <input type="button" value="Register here" className="button-link-main" onClick={displayRegisterPage} />
+          <a href="/registration" className="button-link-main">Register here</a>
         </div>
       </form>
     </div>

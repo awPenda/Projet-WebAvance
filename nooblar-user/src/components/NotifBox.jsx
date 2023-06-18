@@ -1,4 +1,5 @@
 import Icons from './Icons';
+import {expand} from '../Global';
 
 export default function NotifBox({ id, priority, title, body }) {
   function Icon({ priority }) {
@@ -17,26 +18,17 @@ export default function NotifBox({ id, priority, title, body }) {
 
   const key_name = "Notif" + id.toString();
 
-  function expand(key_name) {
-    document.getElementsByClassName(`.notif_body .${key_name}`);
-    alert('fesse');
-
-  }
-
   return (
-    <div key={key_name} id={key_name} className={"NotifBox " + key_name + " " + BorderColor({ priority })}>
-      <button type="button" onClick={expand(key_name)} >
-        fesse
-      </button>
+  <button type="button" onClick={(e) => expand(e,key_name)}  key={key_name} id={key_name} className={"NotifBox " + key_name + " " + BorderColor({ priority })}>
+    <div>
       <Icon priority={priority} />
-      <div>
         {title}
-        <div className={"hidden notif_body Notif" + id.toString()}>
-          {body}
-        </div>
-      </div>
       <Icons type={"trash_ico"} />
-
     </div>
+    <div id={`notif_body${key_name}`} className={`notif_body ${key_name}`} style={{display:"none"}}>
+      {body}
+    </div>
+
+  </button>
   )
 }
