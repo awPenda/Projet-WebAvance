@@ -15,8 +15,19 @@ export default function NotifBox({ id, priority, title, body }) {
     return "warning_color_notif";
   }
 
+  const key_name = "Notif" + id.toString();
+
+  function expand(key_name) {
+    document.getElementsByClassName(`.notif_body .${key_name}`);
+    alert('fesse');
+
+  }
+
   return (
-    <div className={"NotifBox Notif" + id.toString() + " " + BorderColor({ priority })}>
+    <div key={key_name} id={key_name} className={"NotifBox " + key_name + " " + BorderColor({ priority })}>
+      <button type="button" onClick={expand(key_name)} >
+        fesse
+      </button>
       <Icon priority={priority} />
       <div>
         {title}
