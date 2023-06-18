@@ -11,7 +11,8 @@ import ConnectionPage from './components/ConnectionPage';
 import RegistrationPage from './components/RegistrationPage';
 import ListUsers from './components/ListUsers';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import SessionPage from './components/SessionPage'
+import CalendarPage from "./components/CalendarPage";
 let user_data = {
   name: "Rémy Covillon",
   description: "Student, need help for maths...",
@@ -49,10 +50,11 @@ function App() {
       <div className='App-element'>
         <BrowserRouter>
           <Routes>
-              {/* <Route index element={<Home />} /> */}
+              <Route index element={<CalendarPage />} /> 
               <Route path="/connection" element={<ConnectionPage />} />
               <Route path="/registration" element={<RegistrationPage />} />
               <Route path="/findsession" element={<ListUsers isStudent={user_data.student} date={"date"} />} />
+              <Route path="/session" element={<SessionPage/>} />
               {/* <Route path="*" element={<NoPage />} /> */}
           </Routes>
         </BrowserRouter>

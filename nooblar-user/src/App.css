@@ -67,6 +67,25 @@ body {
 
 .App-header .App-logo-container .App-title {
   color: rgb(var(--accent-color));
+  padding-left: 0.3rem;
+}
+
+@media (max-width: 481px){
+  h1{
+    font-size: x-large;
+  }
+  h2 {
+    font-size: large;
+  }
+  h3 {
+    font-size: medium;
+  }
+
+  .App-header .App-logo-container .App-title {
+    display: none;
+  }
+
+  
 }
 
 .App-header .App-buttons-container {
@@ -405,21 +424,26 @@ select {
   color: rgb(var(--main-color));
 }
 
-.hidden {
-  display: none;
-}
 
-.warning_ico {
-  color: rgb(var(--accent-color));
-}
-
-.info_ico {
+.main_color_ico{
   color: rgb(var(--main-color));
 }
-
-.trash_ico {
+.accent_color_ico{
   color: rgb(var(--accent-color));
 }
+.main_color_fill_ico{
+  background-color: rgb(var(--main-color));
+  color: rgb(var(--main-darker-color));
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  align-items: center;
+  padding: 0.2rem;
+}
+.accent_color_fill_ico{
+  color: rgb(var(--accent-color));
+}
+
 
 .button-logout {
   display: flex;
