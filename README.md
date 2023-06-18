@@ -13,4 +13,9 @@ Acronyms :
 - BE: Back-End
 - MS: Micro-Service
 
+Libraries used :
+- [React router](https://reactrouter.com/en/main)
+- [FullCalendar](https://fullcalendar.io/)
+- [axios](https://axios-http.com/)
+
 
