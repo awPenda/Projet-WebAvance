@@ -31,6 +31,36 @@ body {
   max-width: 100%; */
 }
 
+#calendar{
+  margin: 2rem;
+  text-align: center;
+}
+
+#calendar button {
+  margin: 0.1rem;
+  color: rgb(var(--text-color));
+  background-color: rgb(var(--main-color));
+  /* padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem; */
+  font-weight: bold;
+  border: solid thin rgb(var(--main-color));
+  border-radius: 0.3rem;
+}
+
+#calendar button.fc-FindSession-button{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+#calendar button:hover {
+  cursor: pointer;
+  box-shadow: inset 0rem 0rem 2rem 0.6rem white;
+  /* fill-opacity: 0.4; */
+  border: solid thin rgb(var(--main-color));
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -434,14 +464,35 @@ select {
 .main_color_fill_ico{
   background-color: rgb(var(--main-color));
   color: rgb(var(--main-darker-color));
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  border-radius: 0.3rem;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 0.2rem;
+
+  width: 2.4rem;
+  height: 2.2rem;
 }
+.main_color_fill_ico:hover{
+  cursor: pointer;
+  box-shadow: inset 0rem 0rem 2rem 0.3rem white;
+  border: solid thin rgb(var(--main-color));
+}
+
 .accent_color_fill_ico{
-  color: rgb(var(--accent-color));
+  background-color: rgb(var(--accent-color));
+  color: rgb(var(--main-darker-color));
+  border-radius: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 2.4rem;
+  height: 2.2rem;
+}
+.accent_color_fill_ico:hover{
+  cursor: pointer;
+  box-shadow: inset 0rem 0rem 2rem 0.3rem white;
+  border: solid thin rgb(var(--accent-color));
 }
 
 
