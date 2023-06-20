@@ -3,7 +3,7 @@ import React from 'react';
 import logo from './assets/img/VectorLogoNooblar.svg';
 import fakepp from './assets/img/fakePP.png';
 import './App.css';
-import {toggleSideBarNotifs, toggleSideBarProfile } from './Global'
+import { toggleSideBarNotifs, toggleSideBarProfile } from './Global'
 import Icons from './components/Icons';
 import SideBarProfile from './components/SideBarProfile';
 import SideBarNotifs from './components/SideBarNotifs';
@@ -13,18 +13,24 @@ import ListUsers from './components/ListUsers';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SessionPage from './components/SessionPage'
 import CalendarPage from "./components/CalendarPage";
-let user_data = {
-  name: "Rémy Covillon",
-  description: "Student, need help for maths...",
-  email: "rcovillon@gmail.com",
-  student: 1,
-  pp: fakepp
+// let user_data = {
+//   name: "Rémy Covillon",}
 
+const username = localStorage.getItem('name');
+const useremail = localStorage.getItem('email');
+const userstudent = localStorage.getItem('student');
+const userimage = localStorage.getItem('imagesource');
+const user_data = {
+  name: username,
+  description: "Student, need help for maths...",
+  email: useremail,
+  student: userstudent,
+  pp: userimage,
+  pp2: fakeppdidi
 }
 
 function App() {
   let isHidden = true; // "hidden" or "visible"
-
   return (
     <div className="App">
       <header className="App-header">
@@ -42,7 +48,7 @@ function App() {
             <Icons type="notif_ico" />
           </button>
           <button onClick={toggleSideBarProfile} className='button-transparent'>
-            <img src={user_data.pp} className="User-pp" alt="user profile pic" />
+            <img src={user_data.pp} className="User-pp" alt="My Profil Pic" />
           </button>
         </div>
       </header>
@@ -50,12 +56,12 @@ function App() {
       <div className='App-element'>
         <BrowserRouter>
           <Routes>
-              <Route index element={<CalendarPage />} /> 
-              <Route path="/connection" element={<ConnectionPage />} />
-              <Route path="/registration" element={<RegistrationPage />} />
-              <Route path="/findsession" element={<ListUsers isStudent={user_data.student} date={"date"} />} />
-              <Route path="/session" element={<SessionPage/>} />
-              {/* <Route path="*" element={<NoPage />} /> */}
+            <Route index element={<CalendarPage />} />
+            <Route path="/connection" element={<ConnectionPage />} />
+            <Route path="/registration" element={<RegistrationPage />} />
+            <Route path="/findsession" element={<ListUsers isStudent={user_data.student} date={"date"} />} />
+            <Route path="/session" element={<SessionPage />} />
+            {/* <Route path="*" element={<NoPage />} /> */}
           </Routes>
         </BrowserRouter>
 
@@ -67,7 +73,7 @@ function App() {
 
 
 
-      
+
 
 
 
