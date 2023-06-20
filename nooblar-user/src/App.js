@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from 'react';
 import React from 'react';
 import logo from './assets/img/VectorLogoNooblar.svg';
 import fakepp from './assets/img/fakePP.png';
+import fakeppdidi from './assets/img/fakeppdidiane.jpeg'
 import './App.css';
 import { toggleSideBarNotifs, toggleSideBarProfile } from './Global'
 import Icons from './components/Icons';
