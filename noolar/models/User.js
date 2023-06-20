@@ -3,7 +3,7 @@ const sequelize = require('../config/database');
 
 const User = sequelize.define('User', {
   image:{
-    type: DataTypes.BLOB,
+    type: DataTypes.TEXT('long'),
     allowNull: true,
   },
   name: {
@@ -32,6 +32,9 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  refreshToken: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
-
 module.exports = User;

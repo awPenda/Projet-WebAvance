@@ -1,12 +1,18 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const { buffer } = require('browserify/lib/builtins');
 
+//function => generateAuthToken = we generate the authentification token 
 const generateAuthToken = (user) => {
   const token = jwt.sign({ id: user.id }, 'secret-key');
   return token;
 };
-
+//function => generateRefreshToken = we generate the refresh token 
+const generateRefreshToken = (user) => {
+  const refreshToken = jwt.sign({ id: user.id }, 'refresh-secret-key', { expiresIn: '20m' });
+  return refreshToken;
+};
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -23,7 +29,41 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+async function refreshToken(req, res) {
+  const { refreshToken } = req.body;
 
+  if (!refreshToken) {
+    return res.status(400).json({ error: 'Refresh token not provided' });
+  }
+
+  try {
+    // Vérifier la validité du token de rafraîchissement
+    const decoded = jwt.verify(refreshToken, 'refresh-secret-key');
+    
+    // Rechercher l'utilisateur correspondant au token de rafraîchissement
+    const user = await User.findOne({ where: { id: decoded.id } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Générer un nouveau token d'accès
+    const newAuthToken = user.refreshToken;
+
+    // Générer un nouveau token de rafraîchissement
+    const newRefreshToken = jwt.sign({ id: user.id }, 'refresh-secret-key', { expiresIn: '7d' });
+
+    // Mettre à jour le token de rafraîchissement de l'utilisateur
+    user.refreshToken = newRefreshToken;
+    user.token= newAuthToken;
+    await user.save();
+
+    return res.json({ authToken: newAuthToken, refreshToken: newRefreshToken });
+  } catch (error) {
+    console.error('Error refreshing token:', error);
+    return res.status(500).json({ error: 'Error refreshing token' });
+  }
+}
 const register = async (req, res) => {
   try {
     const { name, student, email, password } = req.body;
@@ -64,11 +104,13 @@ const login = async (req, res) => {
     }
 
     const token = generateAuthToken(user);
+    const refreshToken = generateRefreshToken(user);
 
     user.token = token;
+    user.refreshToken = refreshToken;
     await user.save();
 
-    return res.status(200).json({ authToken: token });
+    return res.status(200).json({ authToken: token, refreshToken: refreshToken });
   } catch (error) {
     console.error('Error logging in user:', error);
     return res.status(500).json({ message: 'Error logging in user' });
@@ -77,7 +119,11 @@ const login = async (req, res) => {
 
 async function logout(req, res) {
   try {
-    const user = await User.findByPk(req.userId);
+    const { email, password } = req.body;
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    const user = await User.findOne({ where: { token } });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -88,14 +134,13 @@ async function logout(req, res) {
     }
 
     await user.update({ token: null });
-
+    await user.update({refreshToken: null});
     return res.json({ message: 'User logged out successfully' });
   } catch (error) {
     console.error('Error logging out user:', error);
     return res.status(500).json({ error: 'Error logging out user', detailedError: error.message });
   }
 }
-
 async function updateUser(req, res) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -121,7 +166,9 @@ async function updateUser(req, res) {
       user.password = hashedPassword;
     }
     if (req.file) {
-      user.image = req.file.buffer;
+      const imageBuffer = req.file.buffer;
+      const imageBase64 = imageBuffer.toString('base64');
+      user.image = imageBase64;      
     }
     if (student) {
       user.student = student;
@@ -140,18 +187,25 @@ async function updateUser(req, res) {
 }
 
 async function getUser(req, res) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
   try {
-    const user = await User.findByPk(req.userId, { attributes: ['username'] });
+    const user = await User.findOne({ where: { token } });
+    const username = user.name;
+    const imageBuffer = user.image;
+    //const imageData = Buffer.from(imageBuffer).toString('base64');
+    const student = user.student;
+    const email = user.email;
 
-    if (!user) {
+    if (!username && !imageBuffer && !student && email) {
       return res.status(404).json({ error: 'User not found' });
     }
-
-    return res.json({ user });
+    console.log(username, imageBuffer, student, email);
+    return res.json({ username, imageBuffer, student, email });
   } catch (error) {
     console.error('Error retrieving user:', error);
     return res.status(500).json({ error: 'Error retrieving user', detailedError: error.message });
   }
 }
 
-module.exports = { register, login, logout, authenticateToken, updateUser, getUser };
+module.exports = { register, login, logout, authenticateToken, updateUser, getUser, refreshToken };
