@@ -54,9 +54,41 @@ export default function ListUsers({ isStudent }) {
         if (e) {
             e.preventDefault();
         }
+        e.preventDefault();
+        const getstudent = localStorage.getItem('student');
+        console.log(getstudent);
+        if(getstudent == 'true')
+        {
+           const student = '0'; 
+           axios
+        .get('http://localhost:8000/getAllUser', { params: { student } })
+        .then((response) => {
+          const userData = response.data;
+          localStorage.setItem('user_data', JSON.stringify(userData));
+          console.log(userData);
+          console.log('Successfully fetched user data');
+        })
+        .catch((error) => {
+          console.error('Error fetching user data:', error);
+        });
+        }
+        else
+        {
+           const student = '1';
+           axios
+           .get('http://localhost:8000/getAllUser', { params: { student } })
+           .then((response) => {
+             const userData = response.data;
+             localStorage.setItem('user_data', JSON.stringify(userData));
+             console.log(userData);
+             console.log('Successfully fetched user data');
+           })
+           .catch((error) => {
+             console.error('Error fetching user data:', error);
+           });
+        }
         // get all users that are avaible for {date} and are {isStudent}
         //axios.get(`src/users/${isStudent}/${date}`)
-
         // should get a list of tutors like that : (if isStudent = 0 send all the students from db, otherwise send all the tutors )
         const other_users_data_fetched = [
             {

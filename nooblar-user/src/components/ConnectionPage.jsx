@@ -21,6 +21,7 @@ export default function ConnectionPage({ hidden }) {
         localStorage.setItem('refreshToken', refreshToken);
         // Récupérer les informations de l'utilisateur
         fetchUserData();
+        alert('connecté');
         window.location.href = '/';
       })
       .catch((error) => {
