@@ -34,6 +34,7 @@ app.post('/login', AuthController.login);
 app.post('/logout', AuthController.authenticateToken, AuthController.logout);
 app.put('/updateuser', AuthController.authenticateToken, upload.single('image'), AuthController.updateUser);
 app.get('/getUser', AuthController.authenticateToken, AuthController.getUser);
+app.get('/getAllUser',AuthController.getAllUser);
 app.post('/refreshToken', AuthController.refreshToken);
 app.listen(8000, () => {
   console.log('Server started on port 8000');

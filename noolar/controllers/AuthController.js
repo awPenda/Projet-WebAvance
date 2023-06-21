@@ -208,4 +208,30 @@ async function getUser(req, res) {
   }
 }
 
-module.exports = { register, login, logout, authenticateToken, updateUser, getUser, refreshToken };
+async function getAllUser(req, res) {
+  const { student } = req.query;
+  try {
+    const users = await User.findAll({ where: { student } });
+
+    if (users.length === 0) {
+      return res.status(404).json({ error: 'No users found' });
+    }
+
+    const userData = users.map((user) => {
+      const id = user.id;
+      const username = user.name;
+      const imageBuffer = user.image;
+      const isstudent = user.student;
+      const email = user.email;
+      return { id, username, imageBuffer, isstudent, email };
+    });
+
+    console.log(userData);
+    return res.json(userData);
+  } catch (error) {
+    console.error('Error retrieving users:', error);
+    return res.status(500).json({ error: 'Error retrieving users', detailedError: error.message });
+  }
+}
+
+module.exports = { register, login, logout, authenticateToken, updateUser, getUser, refreshToken, getAllUser};
