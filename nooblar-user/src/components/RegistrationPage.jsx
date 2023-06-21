@@ -17,6 +17,7 @@ export default function RegistrationPage() {
         window.alert('Your user have been created :D');
         // Traitement de la réponse du backend (si nécessaire)
         console.log(response.data);
+        window.location.href = "/connection";
       })
       .catch((error) => {
         // Traitement de l'erreur en cas d'échec
