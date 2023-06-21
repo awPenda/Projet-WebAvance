@@ -127,6 +127,9 @@ export default function SideBarProfile({ hidden }) {
           <option value="true">Student</option>
           <option value="false">Tutor</option>
         </select>
+        <textarea id="edit-description" placeholder='Description'>
+
+        </textarea>
         <input type="email" id="email" placeholder="Email" value={email} onChange={handleEmailChange} />
         <input type="password" name="" id="" placeholder="Password" size="8" value={password} onChange={handlePasswordChange} />
         <input type="password" name="" id="" placeholder="New password" size="8" value={newPassword} onChange={handleNewPasswordChange} />

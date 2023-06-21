@@ -440,6 +440,7 @@ body {
   border: solid thin rgb(var(--accent-color));
 }
 
+textarea,
 input {
   margin-top: 1rem;
   padding: 0.5rem;
