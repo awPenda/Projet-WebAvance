@@ -24,67 +24,67 @@ const user_notifs = [
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 3,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 4,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 5,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 6,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 13,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 12,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 7,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 8,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 9,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 10,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
   },
   {
-    id: 2,
+    id: 11,
     priority: "0",
     title: "title of notification",
     body: "body of notification",
@@ -108,7 +108,7 @@ export default function SideBarNotifs(user_data, hidden) {
       <div className='SideBar-notifList'>
         {user_notifs.forEach((notif) => {
           listNotifs.push(
-            <NotifBox id={notif.id} priority={notif.priority} title={notif.title} body={notif.body} />
+            <NotifBox key={notif.id} id={notif.id} priority={notif.priority} title={notif.title} body={notif.body} />
           )
         })}
         {listNotifs}

@@ -60,8 +60,8 @@ function App() {
             <Route index element={<CalendarPage />} />
             <Route path="/connection" element={<ConnectionPage />} />
             <Route path="/registration" element={<RegistrationPage />} />
-            <Route path="/findsession" element={<ListUsers isStudent={user_data.student} date={"date"} />} />
-            <Route path="/session" element={<SessionPage />} />
+            <Route path="/findsession/:date?" element={<ListUsers isStudent={user_data.student} />} />
+            <Route path="/session/:id" element={<SessionPage />} />
             {/* <Route path="*" element={<NoPage />} /> */}
           </Routes>
         </BrowserRouter>
