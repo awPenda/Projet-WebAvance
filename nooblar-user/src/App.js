@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import logo from './assets/img/VectorLogoNooblar.svg';
 import fakepp from './assets/img/fakePP.png';
 import fakeppdidi from './assets/img/fakeppdidiane.jpeg'
+import defaultPP from './assets/img/defaultPP.png'
 import './App.css';
 import { toggleSideBarNotifs, toggleSideBarProfile } from './Global'
 import Icons from './components/Icons';
@@ -61,7 +62,7 @@ function App() {
             <Icons type="notif_ico" />
           </button>
           <button onClick={toggleSideBarProfile} className='button-transparent'>
-            <img src={user_data.pp} className="User-pp" alt="My Profil Pic" />
+            <img src={(user_data.pp).substring(22, 26) == 'null' ? defaultPP : user_data.pp} className="User-pp" alt="ProfilPic" />
           </button>
         </div>
       </header>
