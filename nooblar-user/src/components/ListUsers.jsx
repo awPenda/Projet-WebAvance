@@ -14,6 +14,10 @@ import { useParams } from "react-router-dom";
 export default function ListUsers({ isStudent }) {
 
     let { date } = useParams();
+    let session_infos = {
+        date: '',
+        time: '',
+    };
 
     // if a date has  been passed through parameters, transform it into correct format to display in the search input
     let timezone, dateInput, timeHourInput, timeInput, dateString;
@@ -54,38 +58,35 @@ export default function ListUsers({ isStudent }) {
         if (e) {
             e.preventDefault();
         }
-        e.preventDefault();
         const getstudent = localStorage.getItem('student');
         console.log(getstudent);
-        if(getstudent == 'true')
-        {
-           const student = '0'; 
-           axios
-        .get('http://localhost:8000/getAllUser', { params: { student } })
-        .then((response) => {
-          const userData = response.data;
-          localStorage.setItem('user_data', JSON.stringify(userData));
-          console.log(userData);
-          console.log('Successfully fetched user data');
-        })
-        .catch((error) => {
-          console.error('Error fetching user data:', error);
-        });
+        if (getstudent == 'true') {
+            const student = '0';
+            axios
+                .get('http://localhost:8000/getAllUser', { params: { student } })
+                .then((response) => {
+                    const userData = response.data;
+                    localStorage.setItem('user_data', JSON.stringify(userData));
+                    console.log(userData);
+                    console.log('Successfully fetched user data');
+                })
+                .catch((error) => {
+                    console.error('Error fetching user data:', error);
+                });
         }
-        else
-        {
-           const student = '1';
-           axios
-           .get('http://localhost:8000/getAllUser', { params: { student } })
-           .then((response) => {
-             const userData = response.data;
-             localStorage.setItem('user_data', JSON.stringify(userData));
-             console.log(userData);
-             console.log('Successfully fetched user data');
-           })
-           .catch((error) => {
-             console.error('Error fetching user data:', error);
-           });
+        else {
+            const student = '1';
+            axios
+                .get('http://localhost:8000/getAllUser', { params: { student } })
+                .then((response) => {
+                    const userData = response.data;
+                    localStorage.setItem('user_data', JSON.stringify(userData));
+                    console.log(userData);
+                    console.log('Successfully fetched user data');
+                })
+                .catch((error) => {
+                    console.error('Error fetching user data:', error);
+                });
         }
         // get all users that are avaible for {date} and are {isStudent}
         //axios.get(`src/users/${isStudent}/${date}`)
@@ -117,7 +118,7 @@ export default function ListUsers({ isStudent }) {
         hmtl_elm.innerHTML = "";
 
         other_users_data_fetched.forEach((user) => {
-            const html = renderToStaticMarkup(<ProfilePage key={user.name} other_user_data={user} />);
+            const html = renderToStaticMarkup(<ProfilePage key={user.name} other_user_data={user} session_infos={session_infos} />);
             hmtl_elm.innerHTML += html;
         })
     }

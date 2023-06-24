@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from 'react';
-import React from 'react';
+// import { createContext, useContext, useState } from 'react';
+// import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './assets/img/VectorLogoNooblar.svg';
 import fakepp from './assets/img/fakePP.png';
 import fakeppdidi from './assets/img/fakeppdidiane.jpeg'
@@ -32,6 +33,17 @@ const user_data = {
 
 function App() {
   let isHidden = true; // "hidden" or "visible"
+
+  const userDataImage = localStorage.getItem('image');
+  const [imageSource, setImageSource] = useState('');
+
+  useEffect(() => {
+    if (userDataImage) {
+      const base64Image = "data:image/png;base64," + userDataImage;
+      setImageSource(base64Image);
+    }
+  }, [userDataImage]);
+
   return (
     <div className="App">
       <header className="App-header">

@@ -33,6 +33,8 @@ export default function SideBarProfile({ user_data, hidden }) {
         localStorage.removeItem('student');
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
+
+        localStorage.clear();
       })
       .catch((error) => {
         console.error('Error logging out:', error);
@@ -49,7 +51,7 @@ export default function SideBarProfile({ user_data, hidden }) {
       <div className='Profile-box' id="Profile-box">
         <img src={imageSource} className="User-pp" alt="user profile pic" />
 
-        <button className='button-logout'onClick={handleLogout}>
+        <button className='button-logout' onClick={handleLogout}>
           Log out
           <Icons type={"logout_ico"} />
         </button>

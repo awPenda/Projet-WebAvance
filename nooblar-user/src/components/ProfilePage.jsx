@@ -1,4 +1,10 @@
-export default function ProfilePage({ other_user_data }) {
+export default function ProfilePage(other_user_data, session_infos) {
+
+    function bookSession() {
+
+        console.log('test');
+        console.log(session_infos);
+    }
 
     return (
         <div className="other-user-box">
@@ -11,7 +17,7 @@ export default function ProfilePage({ other_user_data }) {
                 </div>
             </div>
             <div>
-                <button className="main_color_btn">
+                <button className="main_color_btn" onClick={bookSession}>
                     book a session
                 </button>
             </div>
