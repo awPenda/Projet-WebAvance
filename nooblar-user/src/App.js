@@ -29,22 +29,12 @@ const user_data = {
   description: "Student, need help for maths...",
   email: useremail,
   student: userstudent,
-  pp: userimage,
+  pp: `data:image/png;base64,${localStorage.getItem('image')}`,
   pp2: fakeppdidi
 }
 
 function App() {
   let isHidden = true; // "hidden" or "visible"
-
-  const userDataImage = localStorage.getItem('image');
-  const [imageSource, setImageSource] = useState('');
-
-  useEffect(() => {
-    if (userDataImage) {
-      const base64Image = "data:image/png;base64," + userDataImage;
-      setImageSource(base64Image);
-    }
-  }, [userDataImage]);
 
 
   console.log(localStorage);
@@ -75,7 +65,7 @@ function App() {
               <Icons type="notif_ico" />
             </button>
             <button onClick={toggleSideBarProfile} className='button-transparent'>
-              <img src={user_data.pp || (user_data.pp).substring(22, 26) == 'null' ? defaultPP : user_data.pp} className="User-pp" alt="ProfilPic" />
+              <img src={(user_data.pp).substring(22, 26) == 'null' ? defaultPP : user_data.pp} className="User-pp" alt="ProfilPic" />
             </button>
           </div>
         ) : ('')}

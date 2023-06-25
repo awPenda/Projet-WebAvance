@@ -50,6 +50,18 @@ export default function ListUsers({ isStudent }) {
         }
     }, []);
 
+
+    function displayFetchedUsers(other_users_data_fetched) {
+        const hmtl_elm = document.getElementById('list-users');
+        hmtl_elm.innerHTML = "";
+
+        other_users_data_fetched.forEach((user) => {
+            console.log(user);
+            const html = renderToStaticMarkup(<ProfilePage key={user.username} other_user_data={user} session_infos={session_infos} />);
+            hmtl_elm.innerHTML += html;
+        })
+    }
+
     /**
      * Display the list of Students/Tutors available for a specific date 
      * @param {*} e 
@@ -65,9 +77,8 @@ export default function ListUsers({ isStudent }) {
             axios
                 .get('http://localhost:8000/getAllUser', { params: { student } })
                 .then((response) => {
-                    const userData = response.data;
-                    localStorage.setItem('user_data', JSON.stringify(userData));
-                    console.log(userData);
+                    console.log(response.data);
+                    displayFetchedUsers(response.data);
                     console.log('Successfully fetched user data');
                 })
                 .catch((error) => {
@@ -79,48 +90,14 @@ export default function ListUsers({ isStudent }) {
             axios
                 .get('http://localhost:8000/getAllUser', { params: { student } })
                 .then((response) => {
-                    const userData = response.data;
-                    localStorage.setItem('user_data', JSON.stringify(userData));
-                    console.log(userData);
+                    console.log(response.data);
+                    displayFetchedUsers(response.data);
                     console.log('Successfully fetched user data');
                 })
                 .catch((error) => {
                     console.error('Error fetching user data:', error);
                 });
         }
-        // get all users that are avaible for {date} and are {isStudent}
-        //axios.get(`src/users/${isStudent}/${date}`)
-        // should get a list of tutors like that : (if isStudent = 0 send all the students from db, otherwise send all the tutors )
-        const other_users_data_fetched = [
-            {
-                name: "Lundy Lépicier",
-                description: "Front-end, Back-end, Week-end",
-                teaching_subject: "Programmation",
-                student: 1,
-                pp: fakepplundy
-            }, {
-                name: "Alexandre Chalifour",
-                description: "Math expert",
-                teaching_subject: "Mathematics",
-                student: 0,
-                pp: fakeppalex
-            }, {
-                name: "Didiane Brunelle",
-                description: "Excellent German teacher ;)",
-                teaching_subject: "German language",
-                student: 0,
-                pp: fakeppdidi
-            },
-
-        ]
-
-        const hmtl_elm = document.getElementById('list-users');
-        hmtl_elm.innerHTML = "";
-
-        other_users_data_fetched.forEach((user) => {
-            const html = renderToStaticMarkup(<ProfilePage key={user.name} other_user_data={user} session_infos={session_infos} />);
-            hmtl_elm.innerHTML += html;
-        })
     }
 
     return (

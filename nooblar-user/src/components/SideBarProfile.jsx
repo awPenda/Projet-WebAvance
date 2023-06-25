@@ -6,17 +6,6 @@ import { toggleSideBarProfile, displayEditProfile } from '../Global';
 import axios from 'axios';
 
 export default function SideBarProfile({ user_data, hidden }) {
-  const userDataImage = localStorage.getItem('image');
-  const [imageSource, setImageSource] = useState('');
-
-  useEffect(() => {
-    if (userDataImage) {
-      const base64Image = "data:image/png;base64," + userDataImage;
-      setImageSource(base64Image);
-    }
-  }, [userDataImage]);
-
-  localStorage.setItem('imagesource', imageSource);
 
   const handleLogout = () => {
     axios
@@ -50,7 +39,7 @@ export default function SideBarProfile({ user_data, hidden }) {
       </button>
 
       <div className='Profile-box' id="Profile-box">
-        <img src={(user_data.pp).substring(22, 26) == 'null' ? defaultPP : imageSource} className="User-pp" alt="user profile pic" />
+        <img src={(user_data.pp).substring(22, 26) == 'null' ? defaultPP : user_data.pp} className="User-pp" alt="user profile pic" />
 
         <button className='button-logout' onClick={handleLogout}>
           Log out

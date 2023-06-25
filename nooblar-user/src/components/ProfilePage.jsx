@@ -1,4 +1,6 @@
-export default function ProfilePage(other_user_data, session_infos) {
+import defaultPP from '../assets/img/defaultPP.png'
+
+export default function ProfilePage({ other_user_data, session_infos }) {
 
     function bookSession() {
 
@@ -6,12 +8,13 @@ export default function ProfilePage(other_user_data, session_infos) {
         console.log(session_infos);
     }
 
+    const imgSrc = "data:image/png;base64," + other_user_data.imageBuffer;
     return (
         <div className="other-user-box">
             <div className="profile-box">
-                <img src={other_user_data.pp} alt="user profile pic" className="User-pp" />
+                <img src={(imgSrc).substring(22, 26) == 'null' ? defaultPP : imgSrc} alt="user profile pic" className="User-pp" />
                 <div className="profile-text">
-                    {other_user_data.name}
+                    {other_user_data.username}
                     <br />
                     {other_user_data.description}
                 </div>
