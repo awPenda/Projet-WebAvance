@@ -16,6 +16,7 @@ import ListUsers from './components/ListUsers';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SessionPage from './components/SessionPage'
 import CalendarPage from "./components/CalendarPage";
+import { PrivateRoutes } from './components/PrivateRoutes'
 // let user_data = {
 //   name: "Rémy Covillon",}
 
@@ -45,6 +46,15 @@ function App() {
     }
   }, [userDataImage]);
 
+
+  console.log(localStorage);
+
+  if (localStorage.getItem('name')) {
+    console.log('exists');
+  } else {
+    console.log('dont exists');
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -53,33 +63,44 @@ function App() {
           <h1 className="App-title">Nooblar</h1>
         </div>
 
-        <a href="/">
-          <Icons type="home_ico" />
-        </a>
+        {localStorage.getItem('name') ? (
+          <a href="/">
+            <Icons type="home_ico" />
+          </a>
+        ) : ('')}
 
-        <div className='App-buttons-container'>
-          <button onClick={toggleSideBarNotifs} className='button-transparent'>
-            <Icons type="notif_ico" />
-          </button>
-          <button onClick={toggleSideBarProfile} className='button-transparent'>
-            <img src={(user_data.pp).substring(22, 26) == 'null' ? defaultPP : user_data.pp} className="User-pp" alt="ProfilPic" />
-          </button>
-        </div>
+        {localStorage.getItem('name') ? (
+          <div className='App-buttons-container'>
+            <button onClick={toggleSideBarNotifs} className='button-transparent'>
+              <Icons type="notif_ico" />
+            </button>
+            <button onClick={toggleSideBarProfile} className='button-transparent'>
+              <img src={user_data.pp || (user_data.pp).substring(22, 26) == 'null' ? defaultPP : user_data.pp} className="User-pp" alt="ProfilPic" />
+            </button>
+          </div>
+        ) : ('')}
+
+
+
+
       </header>
 
       <div className='App-element'>
         <BrowserRouter>
           <Routes>
-            <Route index element={<CalendarPage />} />
-            <Route path="/connection" element={<ConnectionPage />} />
+            <Route element={<PrivateRoutes />}>
+              <Route index element={<CalendarPage />} />
+              <Route path="/findsession/:date?" element={<ListUsers isStudent={user_data.student} />} />
+              <Route path="/session/:id" element={<SessionPage />} />
+            </Route>
+            <Route path="/login" element={<ConnectionPage />} />
             <Route path="/registration" element={<RegistrationPage />} />
-            <Route path="/findsession/:date?" element={<ListUsers isStudent={user_data.student} />} />
-            <Route path="/session/:id" element={<SessionPage />} />
             {/* <Route path="*" element={<NoPage />} /> */}
           </Routes>
         </BrowserRouter>
 
       </div>
+
 
       <SideBarProfile user_data={user_data} hidden={isHidden} />
       <SideBarNotifs user_data={user_data} hidden={isHidden} />

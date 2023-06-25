@@ -17,7 +17,7 @@ export default function RegistrationPage() {
         window.alert('Your user have been created :D');
         // Traitement de la réponse du backend (si nécessaire)
         console.log(response.data);
-        window.location.href = "/connection";
+        window.location.href = "/login";
       })
       .catch((error) => {
         // Traitement de l'erreur en cas d'échec
@@ -46,7 +46,7 @@ export default function RegistrationPage() {
 
         <div className="switchConnectRegister">
           Already have an account?
-          <a href="/connection" className="button-link-main">Connect here</a>
+          <a href="/login" className="button-link-main">Connect here</a>
         </div>
       </form>
     </div>
