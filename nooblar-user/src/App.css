@@ -1,3 +1,5 @@
+@import "./assets/style/landing.css";
+
 :root {
   --text-color: 24, 24, 12
     /*#18180c*/
@@ -7,6 +9,9 @@
   ;
   --main-color: 106, 205, 116
     /*#6ACD74   change to be more nuanced later, #6EE078;*/
+  ;
+  --main-text-color: 64, 128, 70
+    /*408046*/
   ;
   --main-darker-color: 19, 43, 18
     /*#132B12*/
@@ -33,9 +38,9 @@ body {
   max-width: 100vw;
   max-height: 100vh;
 
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   /* Hide vertical scrollbar */
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   /* Hide horizontal scrollbar */
 
 }

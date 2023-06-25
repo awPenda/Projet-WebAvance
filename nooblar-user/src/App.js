@@ -17,6 +17,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SessionPage from './components/SessionPage'
 import CalendarPage from "./components/CalendarPage";
 import { PrivateRoutes } from './components/PrivateRoutes'
+import LandingPage from './components/LandingPage'
+import Sources from './components/Sources'
 // let user_data = {
 //   name: "Rémy Covillon",}
 
@@ -36,20 +38,11 @@ const user_data = {
 function App() {
   let isHidden = true; // "hidden" or "visible"
 
-
-  console.log(localStorage);
-
-  if (localStorage.getItem('name')) {
-    console.log('exists');
-  } else {
-    console.log('dont exists');
-  }
-
   return (
     <div className="App">
       <header className="App-header">
         <div className="App-logo-container">
-          <img src={logo} className="App-logo" alt="logo" />
+          <a href='/landing'><img src={logo} className="App-logo" alt="logo" /></a>
           <h1 className="App-title">Nooblar</h1>
         </div>
 
@@ -57,7 +50,10 @@ function App() {
           <a href="/">
             <Icons type="home_ico" />
           </a>
-        ) : ('')}
+        ) : (
+          <div>
+          </div>
+        )}
 
         {localStorage.getItem('name') ? (
           <div className='App-buttons-container'>
@@ -68,7 +64,9 @@ function App() {
               <img src={(user_data.pp).substring(22, 26) == 'null' ? defaultPP : user_data.pp} className="User-pp" alt="ProfilPic" />
             </button>
           </div>
-        ) : ('')}
+        ) : (
+          <input type="button" value="Sign Up Now" className='main_color_btn' onClick={() => { window.location.href = "/registration" }} />
+        )}
 
 
 
@@ -85,6 +83,8 @@ function App() {
             </Route>
             <Route path="/login" element={<ConnectionPage />} />
             <Route path="/registration" element={<RegistrationPage />} />
+            <Route path='/landing' element={<LandingPage />} />
+            <Route path='/sources' element={<Sources />} />
             {/* <Route path="*" element={<NoPage />} /> */}
           </Routes>
         </BrowserRouter>

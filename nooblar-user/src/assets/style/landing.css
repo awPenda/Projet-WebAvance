@@ -1,0 +1,256 @@
+.landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.landing h2 {
+    padding-bottom: 2rem;
+    color: rgb(var(--accent-color));
+}
+
+.landing h3 {
+    padding: 1rem;
+    color: rgb(var(--main-text-color));
+}
+
+.landing h4 {
+    padding-bottom: 0.5rem;
+}
+
+.landing-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    /* margin-top: 1rem; */
+}
+
+@media (max-width: 481px) {
+    .landing-section {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        /* padding: 1rem; */
+    }
+}
+
+@media (min-width: 481px) {
+    .landing-section {
+        padding-top: 2rem;
+        padding-bottom: 1.4rem;
+    }
+}
+
+.landing-header {
+    /* ? background-image: '../assets/img/landing/tutoringSession.jpg' */
+}
+
+.landing-header .bind-img-p {
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.landing-header .bind-img-p p {
+    text-align: right;
+}
+
+.landing-header .bind-img-p img {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.bind-img-p {
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 2px 2px 6px -3px rgba(var(--main-darker-color), 0.25);
+
+    width: min-content;
+
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+}
+
+.bind-img-p p {
+    padding: 1rem;
+}
+
+.bind-img-p img {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 12px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 12px;
+}
+
+/* .bind-img-p {
+    width: 50vw;
+    height: 20vh;
+}
+
+.bind-img-p img {
+    width: inherit;
+    height: inherit;
+    z-index: 1;
+}
+
+.bind-img-p p {
+    z-index: 3;
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+    background-color: white;
+} */
+
+.landing-hero {}
+
+
+.landing-feature {}
+
+
+.conditional-flex {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+
+}
+
+@media (max-width: 481px) {
+    .conditional-flex {
+        flex-direction: column;
+        max-width: 99%;
+    }
+}
+
+@media (min-width: 481px) {
+    .conditional-flex {
+        flex-direction: row;
+        max-width: 90%;
+    }
+}
+
+.landing-feature .card.smolcard.one,
+.landing-feature .card.smolcard.three {
+    background-color: rgb(var(--main-color));
+}
+
+.landing-feature .card.smolcard.two {
+
+    border: solid thin rgb(var(--main-color));
+}
+
+.landing-testimonials {}
+
+.landing-call-to-action {}
+
+.landing-benefits {}
+
+.landing-footer {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.landing .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.landing .card.smolcard {
+    background-color: white;
+
+    border-radius: 0.3rem;
+    box-shadow: 2px 2px 6px -3px rgba(var(--main-darker-color), 0.25);
+
+    padding: 1rem;
+
+    margin-top: 0.5rem;
+    margin-bottom: 0.2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.landing .card.bigcard {
+    background-color: rgb(var(--bg-color));
+
+    padding: 2rem;
+    margin: 1rem;
+
+    border-radius: 12px;
+    box-shadow: 3px 5px 20px -7px rgba(var(--main-darker-color), 0.25);
+}
+
+
+.landing-outro {
+    background-color: white;
+
+    width: 100vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 481px) {
+    .landing-outro {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 481px) {
+    .landing-outro {
+        flex-direction: row;
+    }
+}
+
+.landing-outro div {
+    margin: 2rem;
+}
+
+.landing-outro ul {
+    margin: 2rem;
+    text-align: left;
+    list-style: none;
+}
+
+.landing-outro li {
+    padding: 0.5rem;
+}
+
+.landing-outro .landing-logo {
+    margin: 2rem;
+}
+
+
+p {
+    text-align: justify;
+}
+
+
+img {
+    max-width: 90vw;
+    max-height: 50vh;
+    /* border-radius: 0.3rem; */
+}
+
+@media (min-width: 481px) {
+    img {
+        max-width: 46vw;
+        max-height: 50vh;
+        /* border-radius: 0.3rem; */
+    }
+}
+
+.landing-logo {
+    height: 3rem;
+}
