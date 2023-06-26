@@ -1,14 +1,14 @@
 import defaultPP from '../assets/img/defaultPP.png'
 
-export default function ProfilePage({ other_user_data, session_infos }) {
+function bookSession() {
 
-    function bookSession() {
+    console.log('test');
 
-        console.log('test');
-        console.log(session_infos);
-    }
-
+    //display popup
+}
+export default function ProfilePage({ other_user_data, session_infos, is_booked }) {
     const imgSrc = "data:image/png;base64," + other_user_data.imageBuffer;
+    console.log(imgSrc);
     return (
         <div className="other-user-box">
             <div className="profile-box">
@@ -19,11 +19,16 @@ export default function ProfilePage({ other_user_data, session_infos }) {
                     {other_user_data.description}
                 </div>
             </div>
-            <div>
-                <button className="main_color_btn" onClick={bookSession}>
-                    book a session
-                </button>
-            </div>
+
+            {!is_booked ? (
+                <div>
+                    {/* <input id={`click-session-user-${other_user_data.id}`} type="button" value="Book a session" className='main_color_btn' onClick={window.location.href = "/"} /> */}
+                    {/* <input id={`click-session-user-${other_user_data.id}`} type="button" value="Book a session" className='main_color_btn' onClick={bookSession} /> */}
+                    <button className="main_color_btn" onClick={() => { console.log('oskour') }}>
+                        book a session
+                    </button>
+                </div>
+            ) : ('')}
         </div>
     );
 }

@@ -2,7 +2,7 @@ import ProfilePage from "./ProfilePage";
 import Icons from "./Icons";
 import axios from "axios";
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { useEffect, useState } from 'react';
 
 import fakeppdidi from '../assets/img/fakeppdidiane.jpeg';
@@ -13,6 +13,8 @@ import { useParams } from "react-router-dom";
 
 export default function ListUsers({ isStudent }) {
 
+    //define variables
+    //get date from url parameters
     let { date } = useParams();
     let session_infos = {
         date: '',
@@ -57,7 +59,7 @@ export default function ListUsers({ isStudent }) {
 
         other_users_data_fetched.forEach((user) => {
             console.log(user);
-            const html = renderToStaticMarkup(<ProfilePage key={user.username} other_user_data={user} session_infos={session_infos} />);
+            const html = renderToString(<ProfilePage key={user.username} other_user_data={user} session_infos={session_infos} is_booked={false} />);
             hmtl_elm.innerHTML += html;
         })
     }
@@ -100,6 +102,17 @@ export default function ListUsers({ isStudent }) {
         }
     }
 
+    function bookSession(date, user, askedUser) {
+
+        console.log('test');
+
+        //display popup
+
+        window.location.href = `/booksession/${date}/${user}/${askedUser}`;
+
+
+    }
+
     return (
         <div className="List">
             <form onSubmit={(e) => getUsersForSessionDate(e)} action="get-users-for-session-date" method="get" className="search-bar">
@@ -117,6 +130,8 @@ export default function ListUsers({ isStudent }) {
 
                 {/* when form is submitted, send get request */}
             </form>
+
+            <input type="button" value="Book a session" className="accent_color_btn" onClick={() => { bookSession('2023-07-01T10:00:00+02:00', '5', '1') }} />
 
 
             <h2>List of {isStudent ? "tutor" : "student"} avaible for <i>{dateString ? dateString : 'choose a date'}</i></h2>

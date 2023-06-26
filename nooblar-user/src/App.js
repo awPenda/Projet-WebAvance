@@ -19,6 +19,7 @@ import CalendarPage from "./components/CalendarPage";
 import { PrivateRoutes } from './components/PrivateRoutes'
 import LandingPage from './components/LandingPage'
 import Sources from './components/Sources'
+import BookSession from './components/BookSession';
 // let user_data = {
 //   name: "Rémy Covillon",}
 
@@ -80,6 +81,7 @@ function App() {
               <Route index element={<CalendarPage />} />
               <Route path="/findsession/:date?" element={<ListUsers isStudent={user_data.student} />} />
               <Route path="/session/:id" element={<SessionPage />} />
+              <Route path="/booksession/:date/:user/:askedUser" element={<BookSession />} />
             </Route>
             <Route path="/login" element={<ConnectionPage />} />
             <Route path="/registration" element={<RegistrationPage />} />
