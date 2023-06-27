@@ -144,7 +144,7 @@ async function logout(req, res) {
 async function updateUser(req, res) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-  const { name, student, email, password, newPassword} = req.body;
+  const { name, student, email, password, newPassword, description} = req.body;
 
   try {
     const user = await User.findOne({ where: { token } });
@@ -176,6 +176,9 @@ async function updateUser(req, res) {
     if (email) {
       user.email = email;
     }
+    if (description) {
+      user.description = description;
+    }
 
     await user.save();
 
@@ -191,17 +194,36 @@ async function getUser(req, res) {
   const token = authHeader && authHeader.split(' ')[1];
   try {
     const user = await User.findOne({ where: { token } });
+    const id = user.id;
     const username = user.name;
     const imageBuffer = user.image;
-    //const imageData = Buffer.from(imageBuffer).toString('base64');
     const student = user.student;
     const email = user.email;
-
-    if (!username && !imageBuffer && !student && email) {
+    const description = user.description
+    if (!id&& !username && !imageBuffer && !student && !email && !description) {
       return res.status(404).json({ error: 'User not found' });
     }
-    console.log(username, imageBuffer, student, email);
-    return res.json({ username, imageBuffer, student, email });
+    console.log(id,username, imageBuffer, student, email, description);
+    return res.json({id, username, imageBuffer, student, email, description });
+  } catch (error) {
+    console.error('Error retrieving user:', error);
+    return res.status(500).json({ error: 'Error retrieving user', detailedError: error.message });
+  }
+}
+async function getSpecificUser(req, res) {
+  const { id } = req.query;
+  try {
+    const user = await User.findOne({ where: { id } });
+    const username = user.name;
+    const imageBuffer = user.image;
+    const student = user.student;
+    const email = user.email;
+    const description = user.description
+    if (!username && !imageBuffer && !student && !email && !description) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    console.log(username, imageBuffer, student, email, description);
+    return res.json({ username, imageBuffer, student, email, description });
   } catch (error) {
     console.error('Error retrieving user:', error);
     return res.status(500).json({ error: 'Error retrieving user', detailedError: error.message });
@@ -223,7 +245,8 @@ async function getAllUser(req, res) {
       const imageBuffer = user.image;
       const isstudent = user.student;
       const email = user.email;
-      return { id, username, imageBuffer, isstudent, email };
+      const description = user.description
+      return { id, username, imageBuffer, isstudent, email, description };
     });
 
     console.log(userData);
@@ -233,5 +256,25 @@ async function getAllUser(req, res) {
     return res.status(500).json({ error: 'Error retrieving users', detailedError: error.message });
   }
 }
+const deleteUser = async (req, res) => {
+  const { email } = req.body;
 
-module.exports = { register, login, logout, authenticateToken, updateUser, getUser, refreshToken, getAllUser};
+  try {
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Supprimer l'utilisateur de la base de données
+    await user.destroy();
+
+    return res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    return res.status(500).json({ error: 'Error deleting user', detailedError: error.message });
+  }
+};
+
+
+module.exports = { register, login, logout, authenticateToken, updateUser, getUser, refreshToken, getAllUser, deleteUser};
