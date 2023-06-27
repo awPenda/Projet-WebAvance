@@ -9,9 +9,15 @@ import { useEffect, useState } from 'react';
 
 
 const confirmBooking = (e) => {
-    const start_date = e.target.start_date.value + e.target.start_time.value;
-    const end_date = e.target.end_date.value + e.target.end_time.value;
-
+    if (!e.target.start_time.value) {
+        alert('You must insert a time.')
+        return;
+    }
+    let timezone = new Date().getTimezoneOffset();
+    timezone = `${`${-((parseInt(timezone) / 60))}`.padStart(2, '0')}:00`;
+    const plusorminus = timezone.substring(0, 1) != '0' ? '' : '+';
+    const start_date = `${e.target.start_date.value}T${e.target.start_time.value}:00${plusorminus}${timezone}`;
+    const end_date = `${e.target.end_date.value}T${e.target.end_time.value}:00${plusorminus}${timezone}`;
 
     const infos_session = {
         allDay: e.target.allDay.checked,
