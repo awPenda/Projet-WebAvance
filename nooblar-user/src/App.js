@@ -28,7 +28,6 @@ const useremail = localStorage.getItem('email');
 const userstudent = localStorage.getItem('student');
 const userimage = localStorage.getItem('imagesource');
 const description = localStorage.getItem('description');
-const id = localStorage.getItem('id');
 const user_data = {
   name: username,
   description: description,

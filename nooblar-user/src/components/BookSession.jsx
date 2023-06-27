@@ -19,44 +19,80 @@ const confirmBooking = (e) => {
     const start_date = `${e.target.start_date.value}T${e.target.start_time.value}:00${plusorminus}${timezone}`;
     const end_date = `${e.target.end_date.value}T${e.target.end_time.value}:00${plusorminus}${timezone}`;
 
-    const infos_session = {
-        allDay: e.target.allDay.checked,
-        start: start_date,
-        end: end_date,
-        slotDuration: '01:00',
-        title: e.target.title.value,
-        url: e.target.url.value,
-        interactive: true,
-        extendedProps: {
-            description: e.target.description.value,
-            status: 'pending',
-            priority: 'normal',
-            tutors: [{ id: 1 },],
-            student: [{ id: 1 },],
+    if(localStorage.getItem('student')=='true')
+    {
+        const infos_session = {
+            allDay: e.target.allDay.checked,
+            start: start_date,
+            end: end_date,
+            slotDuration: '01:00',
+            title: e.target.title.value,
+            url: e.target.url.value,
+            interactive: true,
+            extendedProps: {
+                description: e.target.description.value,
+                status: 'pending',
+                priority: 'normal',
+                tutors: 1,
+                student: localStorage.getItem('id'),
+            }
         }
+        console.log(infos_session);
+        console.log('booking confirmed');
+    
+        axios
+            .post('http://localhost:8080/api/booksession', infos_session)
+            .then((response) => {
+                window.alert('This session is been booked :D');
+                // Traitement de la réponse du backend (si nécessaire)
+                console.log(response.data);
+                window.location.href = "/";
+            })
+            .catch((error) => {
+                console.log(infos_session);
+                // Traitement de l'erreur en cas d'échec
+                window.alert('There have been an error in the booking :c');
+                console.error(error);
+            });
     }
-
-
-
-
-
-
-    console.log(infos_session);
-    console.log('booking confirmed');
-
-    axios
-        .post('http://localhost:8000/booksession', { infos_session })
-        .then((response) => {
-            window.alert('This session is been booked :D');
-            // Traitement de la réponse du backend (si nécessaire)
-            console.log(response.data);
-            window.location.href = "/";
-        })
-        .catch((error) => {
-            // Traitement de l'erreur en cas d'échec
-            window.alert('There have been an error in the booking :c');
-            console.error(error);
-        });
+    else
+    {
+        const infos_session = {
+            allDay: e.target.allDay.checked,
+            start: start_date,
+            end: end_date,
+            slotDuration: '01:00',
+            title: e.target.title.value,
+            url: e.target.url.value,
+            interactive: true,
+            extendedProps: {
+                description: e.target.description.value,
+                status: 'pending',
+                priority: 'normal',
+                tutors: localStorage.getItem('id'),
+                student:1,
+            }
+        }
+    
+        console.log(infos_session);
+        console.log('booking confirmed');
+    
+        axios
+            .post('http://localhost:8080/api/booksession', infos_session)
+            .then((response) => {
+                window.alert('This session is been booked :D');
+                // Traitement de la réponse du backend (si nécessaire)
+                console.log(response.data);
+                window.location.href = "/";
+            })
+            .catch((error) => {
+                console.log(infos_session);
+                // Traitement de l'erreur en cas d'échec
+                window.alert('There have been an error in the booking :c');
+                console.error(error);
+            });
+    }
+    
 
 }
 
