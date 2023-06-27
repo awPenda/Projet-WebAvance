@@ -14,12 +14,10 @@ import { useParams } from "react-router-dom";
 export default function ListUsers({ isStudent }) {
 
     //define variables
+    let list_users = [];
+
     //get date from url parameters
     let { date } = useParams();
-    let session_infos = {
-        date: '',
-        time: '',
-    };
 
     // if a date has  been passed through parameters, transform it into correct format to display in the search input
     let timezone, dateInput, timeHourInput, timeInput, dateString;
@@ -34,13 +32,13 @@ export default function ListUsers({ isStudent }) {
     }
 
     //render userlist after dom has finished rendering components
-    const [renderUserList, dorenderUserList] = useState(false);
+    const [renderUserListOnload, dorenderUserListOnload] = useState(false);
     useEffect(() => {
         const onPageLoad = () => {
             if (date) {
                 getUsersForSessionDate();
             }
-            dorenderUserList(true);
+            dorenderUserListOnload(true);
         };
         // Check if the page has already loaded
         if (document.readyState === 'complete') {
@@ -52,16 +50,27 @@ export default function ListUsers({ isStudent }) {
         }
     }, []);
 
+    const [userslist, setUserslist] = useState(list_users);
 
-    function displayFetchedUsers(other_users_data_fetched) {
+
+    //create your forceUpdate hook
+    function forceUpdate() {
+        // A function that increment 👆🏻 the previous state like here 
+        // is better than directly setting `setValue(value + 1)`
+    }
+
+
+    function rerenderListUsers() {
+
         const hmtl_elm = document.getElementById('list-users');
-        hmtl_elm.innerHTML = "";
+        const list_users_hmtl = JSON.parse(hmtl_elm.dataset.listusers);
+        list_users = list_users_hmtl;
+        console.log(list_users_hmtl);
 
-        other_users_data_fetched.forEach((user) => {
-            console.log(user);
-            const html = renderToString(<ProfilePage key={user.username} other_user_data={user} session_infos={session_infos} is_booked={false} />);
-            hmtl_elm.innerHTML += html;
-        })
+        setUserslist(list_users_hmtl);
+
+        // forceUpdate();
+
     }
 
     /**
@@ -73,15 +82,20 @@ export default function ListUsers({ isStudent }) {
             e.preventDefault();
         }
         const getstudent = localStorage.getItem('student');
-        console.log(getstudent);
+        //console.log(getstudent);
         if (getstudent == 'true') {
             const student = '0';
             axios
                 .get('http://localhost:8000/getAllUser', { params: { student } })
                 .then((response) => {
-                    console.log(response.data);
-                    displayFetchedUsers(response.data);
-                    console.log('Successfully fetched user data');
+                    //console.log(response.data);
+                    // displayFetchedUsers(response.data);
+                    const hmtl_elm = document.getElementById('list-users');
+                    hmtl_elm.setAttribute('data-listusers', JSON.stringify(response.data));
+
+                    rerenderListUsers();
+
+                    //console.log('Successfully fetched user data');
                 })
                 .catch((error) => {
                     console.error('Error fetching user data:', error);
@@ -92,9 +106,13 @@ export default function ListUsers({ isStudent }) {
             axios
                 .get('http://localhost:8000/getAllUser', { params: { student } })
                 .then((response) => {
-                    console.log(response.data);
-                    displayFetchedUsers(response.data);
-                    console.log('Successfully fetched user data');
+                    //console.log(response.data);
+                    // displayFetchedUsers(response.data);
+                    const hmtl_elm = document.getElementById('list-users');
+                    hmtl_elm.setAttribute('data-listusers', JSON.stringify(response.data));
+
+                    rerenderListUsers();
+                    //console.log('Successfully fetched user data');
                 })
                 .catch((error) => {
                     console.error('Error fetching user data:', error);
@@ -102,16 +120,9 @@ export default function ListUsers({ isStudent }) {
         }
     }
 
-    function bookSession(date, user, askedUser) {
-
-        console.log('test');
-
-        //display popup
-
-        window.location.href = `/booksession/${date}/${user}/${askedUser}`;
 
 
-    }
+    let listUsersComponents = [];
 
     return (
         <div className="List">
@@ -131,11 +142,17 @@ export default function ListUsers({ isStudent }) {
                 {/* when form is submitted, send get request */}
             </form>
 
-            <input type="button" value="Book a session" className="accent_color_btn" onClick={() => { bookSession('2023-07-01T10:00:00+02:00', '5', '1') }} />
-
-
             <h2>List of {isStudent ? "tutor" : "student"} avaible for <i>{dateString ? dateString : 'choose a date'}</i></h2>
-            <div id="list-users">
+
+            <div id="list-users" data-listusers={userslist}>
+                {/* {rerenderListUsers()} */}
+                {console.log(userslist)}
+                {userslist.forEach((user) => {
+                    listUsersComponents.push(
+                        <ProfilePage key={user.username} other_user_data={user} date={date} is_booked={false} />
+                    )
+                })}
+                {listUsersComponents}
             </div>
 
         </div>

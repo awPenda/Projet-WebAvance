@@ -1,14 +1,14 @@
 import defaultPP from '../assets/img/defaultPP.png'
 
-function bookSession() {
+function bookSession(date, askedUser) {
+    localStorage.setItem('askedUser', JSON.stringify(askedUser));
+    window.location.href = `/booksession/${date}/${askedUser.id}`;
 
-    console.log('test');
 
-    //display popup
 }
-export default function ProfilePage({ other_user_data, session_infos, is_booked }) {
+export default function ProfilePage({ other_user_data, date, is_booked }) {
     const imgSrc = "data:image/png;base64," + other_user_data.imageBuffer;
-    console.log(imgSrc);
+    //console.log(imgSrc);
     return (
         <div className="other-user-box">
             <div className="profile-box">
@@ -22,9 +22,7 @@ export default function ProfilePage({ other_user_data, session_infos, is_booked 
 
             {!is_booked ? (
                 <div>
-                    {/* <input id={`click-session-user-${other_user_data.id}`} type="button" value="Book a session" className='main_color_btn' onClick={window.location.href = "/"} /> */}
-                    {/* <input id={`click-session-user-${other_user_data.id}`} type="button" value="Book a session" className='main_color_btn' onClick={bookSession} /> */}
-                    <button className="main_color_btn" onClick={() => { console.log('oskour') }}>
+                    <button className="main_color_btn" onClick={() => bookSession(date, other_user_data)}>
                         book a session
                     </button>
                 </div>

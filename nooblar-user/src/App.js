@@ -81,7 +81,7 @@ function App() {
               <Route index element={<CalendarPage />} />
               <Route path="/findsession/:date?" element={<ListUsers isStudent={user_data.student} />} />
               <Route path="/session/:id" element={<SessionPage />} />
-              <Route path="/booksession/:date/:user/:askedUser" element={<BookSession />} />
+              <Route path="/booksession/:date/:askedUser" element={<BookSession />} />
             </Route>
             <Route path="/login" element={<ConnectionPage />} />
             <Route path="/registration" element={<RegistrationPage />} />

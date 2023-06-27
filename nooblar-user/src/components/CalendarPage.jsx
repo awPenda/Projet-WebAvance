@@ -15,6 +15,12 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { addEvent } from '../Global'
+
+
+
+
+
+
 // list of events, should be received by backend
 const events = [
   { title: 'Meeting', start: new Date() },
@@ -183,7 +189,15 @@ function addCalendar() {
   calendar.render();
 }
 
+function getEvents() {
+
+}
+
 export default function CalendarPage() {
+  // get session events from back-end and store it into local storage
+  getEvents();
+
+
   //render calendar after dom has finished rendering components
   const [renderCalendar, doRenderCalendar] = useState(false);
   useEffect(() => {
