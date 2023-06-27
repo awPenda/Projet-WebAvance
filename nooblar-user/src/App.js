@@ -27,9 +27,11 @@ const username = localStorage.getItem('name');
 const useremail = localStorage.getItem('email');
 const userstudent = localStorage.getItem('student');
 const userimage = localStorage.getItem('imagesource');
+const description = localStorage.getItem('description');
+const id = localStorage.getItem('id');
 const user_data = {
   name: username,
-  description: "Student, need help for maths...",
+  description: description,
   email: useremail,
   student: userstudent,
   pp: `data:image/png;base64,${localStorage.getItem('image')}`,

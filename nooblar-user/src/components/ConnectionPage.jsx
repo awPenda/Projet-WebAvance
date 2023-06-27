@@ -40,15 +40,15 @@ export default function ConnectionPage({ hidden }) {
       })
       .then((response) => {
         const userData = response.data;
-        const { username, imageBuffer, student, email } = userData;
+        const { username, imageBuffer, student, email, description } = userData;
 
         // Stocker les informations de l'utilisateur dans le localStorage
         localStorage.setItem('name', JSON.stringify(username));
         localStorage.setItem('image', imageBuffer);
         localStorage.setItem('email', JSON.stringify(email));
         localStorage.setItem('student', JSON.stringify(student));
-
-        console.log(username, imageBuffer, email, student);
+        localStorage.setItem('description', JSON.stringify(description));
+        console.log(username, imageBuffer, email, student, description);
         console.log('Successfully fetched user data');
       })
       .catch((error) => {

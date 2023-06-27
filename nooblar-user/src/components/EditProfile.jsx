@@ -10,6 +10,7 @@ export default function SideBarProfile({ hidden }) {
   const [newPassword, setNewPassword] = useState('');
   const [student, setStudent] = useState(true);
   const [image, setProfilePic] = useState(null);
+  const [description, setDescription] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,6 +23,7 @@ export default function SideBarProfile({ hidden }) {
       formData.append('password', password);
       formData.append('newPassword', newPassword);
       formData.append('student', student);
+      formData.append('description', description);
       if (image) {
         formData.append('image', image);
       }
@@ -37,12 +39,12 @@ export default function SideBarProfile({ hidden }) {
         fetchUserData();
         const data = response.data;
         console.log(data.message);
-        console.log(name, email, password, newPassword, student, image);
+        console.log(name, email, password, newPassword, student, image, description);
       } else {
         console.error(response.data.error);
       }
     } catch (error) {
-      console.log(name, email, password, newPassword, student, image);
+      console.log(name, email, password, newPassword, student, image, description);
       console.error('Error updating user:', error.message);
     }
   }
@@ -63,8 +65,8 @@ export default function SideBarProfile({ hidden }) {
         localStorage.setItem('image', imageBuffer);
         localStorage.setItem('email', JSON.stringify(email));
         localStorage.setItem('student', JSON.stringify(student));
-
-        console.log(username, imageBuffer, email, student);
+        localStorage.setItem('description', JSON.stringify(description));
+        console.log(username, imageBuffer, email, student, description);
         console.log('Successfully fetched user data');
       })
       .catch((error) => {
@@ -95,6 +97,10 @@ export default function SideBarProfile({ hidden }) {
   const handleProfilePicChange = (event) => {
     const file = event.target.files[0];
     setProfilePic(file);
+  }
+  
+  const handledescriptionchange = (event) => {
+    setDescription(event.target.value);
   }
 
 
@@ -127,7 +133,7 @@ export default function SideBarProfile({ hidden }) {
           <option value="true">Student</option>
           <option value="false">Tutor</option>
         </select>
-        <textarea id="edit-description" placeholder='Description'>
+        <textarea id="edit-description" placeholder='Description' onChange={handledescriptionchange}>
 
         </textarea>
         <input type="email" id="email" placeholder="Email" value={email} onChange={handleEmailChange} />
