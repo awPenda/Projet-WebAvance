@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/TutoringApp/static/css/main.cd4a8cef.css",
+    "main.js": "/TutoringApp/static/js/main.9bda5ffe.js",
+    "static/js/787.557f5859.chunk.js": "/TutoringApp/static/js/787.557f5859.chunk.js",
+    "static/media/graduatedStudents.jpg": "/TutoringApp/static/media/graduatedStudents.9b87c6ca89602b5b74a8.jpg",
+    "static/media/overwhelmedStudent.jpg": "/TutoringApp/static/media/overwhelmedStudent.679d3c80b154b5d75c34.jpg",
+    "static/media/tutoringSession.jpg": "/TutoringApp/static/media/tutoringSession.47f55679e145fc9763e7.jpg",
+    "static/media/fakeppalex.jpeg": "/TutoringApp/static/media/fakeppalex.97d03fb59feda4e08c47.jpeg",
+    "static/media/fakeppdidiane.jpeg": "/TutoringApp/static/media/fakeppdidiane.145faf58eebca17596ed.jpeg",
+    "static/media/fakepplunndy.jpeg": "/TutoringApp/static/media/fakepplunndy.0599608148dbff0862df.jpeg",
+    "static/media/fakePP.png": "/TutoringApp/static/media/fakePP.c6f454f2dbf42df6ed70.png",
+    "static/media/VectorLogoNooblar.svg": "/TutoringApp/static/media/VectorLogoNooblar.1da9e6b26f013d47c1b8caf92f8d7bd5.svg",
+    "index.html": "/TutoringApp/index.html",
+    "main.cd4a8cef.css.map": "/TutoringApp/static/css/main.cd4a8cef.css.map",
+    "main.9bda5ffe.js.map": "/TutoringApp/static/js/main.9bda5ffe.js.map",
+    "787.557f5859.chunk.js.map": "/TutoringApp/static/js/787.557f5859.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cd4a8cef.css",
+    "static/js/main.9bda5ffe.js"
+  ]
+}
