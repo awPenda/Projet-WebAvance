@@ -11,7 +11,4 @@ router.get('/getOneNotif/:id', notifController.getOneNotif);
 router.put('/updateNotif/:id', notifController.updateNotif);
 router.delete('/deleteNotif/:id', notifController.deleteNotif);
 
-
-module.exports = { createNotif, getAllNotif, getOneNotif, updateNotif, deleteNotif };
-
 module.exports = router;
