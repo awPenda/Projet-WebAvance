@@ -8,19 +8,20 @@ import { useEffect, useState } from 'react';
 
 
 
-const confirmBooking = (e) => {
+const confirmBooking = (e, is_booked) => {
     if (!e.target.start_time.value) {
         alert('You must insert a time.')
         return;
     }
-    let timezone = new Date().getTimezoneOffset();
-    timezone = `${`${-((parseInt(timezone) / 60))}`.padStart(2, '0')}:00`;
-    const plusorminus = timezone.substring(0, 1) != '0' ? '' : '+';
-    const start_date = `${e.target.start_date.value}T${e.target.start_time.value}:00${plusorminus}${timezone}`;
-    const end_date = `${e.target.end_date.value}T${e.target.end_time.value}:00${plusorminus}${timezone}`;
+    let timezone = (new Date().getTimezoneOffset());
+    let tmz = `${(-(parseInt(timezone) / 60))}`;
+    const plusorminus = (tmz).substring(0, 1) != '-' ? '+' : '-';
+    const tmzne = tmz.substring(1, 2);
+    // console.log(tmzne.padStart(2, '0'));
+    const start_date = `${e.target.start_date.value}T${e.target.start_time.value}:00${plusorminus}${tmzne.padStart(2, '0')}:00`;
+    const end_date = `${e.target.end_date.value}T${e.target.end_time.value}:00${plusorminus}${tmzne.padStart(2, '0')}:00`;
 
-    if(localStorage.getItem('student')=='true')
-    {
+    if (localStorage.getItem('student') == 'true') {
         const infos_session = {
             allDay: e.target.allDay.checked,
             start: start_date,
@@ -39,9 +40,9 @@ const confirmBooking = (e) => {
         }
         console.log(infos_session);
         console.log('booking confirmed');
-    
+
         axios
-            .post('http://localhost:8080/api/booksession', infos_session)
+            .post('http://localhost:8080/api/booksession', JSON.stringify(infos_session))
             .then((response) => {
                 window.alert('This session is been booked :D');
                 // Traitement de la réponse du backend (si nécessaire)
@@ -55,8 +56,7 @@ const confirmBooking = (e) => {
                 console.error(error);
             });
     }
-    else
-    {
+    else {
         const infos_session = {
             allDay: e.target.allDay.checked,
             start: start_date,
@@ -70,19 +70,25 @@ const confirmBooking = (e) => {
                 status: 'pending',
                 priority: 'normal',
                 tutors: localStorage.getItem('id'),
-                student:1,
+                student: 1,
             }
         }
-    
+
+        /**
+         * tutors: [{ id: 1 },],
+                student: [{ id: 1 },],
+         */
+
         console.log(infos_session);
         console.log('booking confirmed');
-    
+
         axios
             .post('http://localhost:8080/api/booksession', infos_session)
             .then((response) => {
                 window.alert('This session is been booked :D');
                 // Traitement de la réponse du backend (si nécessaire)
                 console.log(response.data);
+                alert('session created')
                 window.location.href = "/";
             })
             .catch((error) => {
@@ -92,7 +98,6 @@ const confirmBooking = (e) => {
                 console.error(error);
             });
     }
-    
 
 }
 
@@ -119,7 +124,12 @@ const event = {
 
 export default function BookSession({ }) {
     //get date from url parameters
-    let { date, askedUser } = useParams();
+    let { date, askedUser, isbooked, id } = useParams();
+
+    if (isbooked) {
+        console.log(isbooked);
+
+    }
 
     // if a date has  been passed through parameters, transform it into correct format to display in the search input
     let timezone, dateInput, timeHourInput, dateString, starttimeInput, endTimeInput;
@@ -148,7 +158,7 @@ export default function BookSession({ }) {
     return (
         <div>
             <h2>Confirm session</h2>
-            <form onSubmit={confirmBooking} >
+            <form onSubmit={(e) => confirmBooking(e, isbooked)} >
                 <div className='form-section'>
                     <label htmlFor="start-time">Start time : </label>
                     <br />
@@ -177,9 +187,14 @@ export default function BookSession({ }) {
                     participants
                     <ProfilePage key={askedUser_info.username} other_user_data={askedUser_info} session_infos={session_infos} is_booked={true} />
                 </div>
+
                 <button type="submit" className='main_color_btn'>
-                    Confirm booking
+                    {isbooked ? 'Update Session' : 'Confirm booking'}
                 </button>
+
+                {isbooked ? (
+                    <input type="button" value="Remove session" className='accent_color_btn' />
+                ) : ('')}
             </form>
 
             {/* //tutors: [1],

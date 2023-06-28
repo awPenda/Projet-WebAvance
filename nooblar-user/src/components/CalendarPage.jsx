@@ -9,74 +9,32 @@ import interactionPlugin from "@fullcalendar/interaction"  // needed for dayClic
 // import timeGridPlugin from '@fullcalendar/timegrid';
 // import listPlugin from '@fullcalendar/list';
 
+
 import { Calendar } from '@fullcalendar/core';
 // import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { addEvent } from '../Global'
+import axios from 'axios';
 
 
 
 
 
+let events = [];
 
-// list of events, should be received by backend
-const events = [
-  { title: 'Meeting', start: new Date() },
-  { title: 'event 1', date: '2023-06-20' },
-  { title: 'event 2', date: '2023-07-02' },
+// // list of events, should be received by backend
+/*
+let events = [
   {
     id: 1,
     allDay: false, //or true
-    start: new Date('2023-06-22T13:00:00'),
-    end: new Date('2023-06-22T15:30:00'),
-    //daysOfWeek: [0, 1], //for recurring events [0,1] for recurring sunday and mondays
-    title: 'meeting with Jean',
-    url: '/session', //send to link when visited, can be controlled with eventClick
-    interactive: true, // eventInteractive
-    className: 'mockclassname', //or classNames pour 
-    //for more https://fullcalendar.io/docs/event-parsing
-    status: 'pending', // can be pending, accepted, refused, replanned or canceled (each render a color for the notification)
-    color: 'lightblue', //for background and border
-  },
-  {
-    id: 2,
-    allDay: false, //or true
-    //date: new Date('2023-06-25'),
-    start: '2023-06-01T12:30:00-05:00',
-    end: '2023-06-01T15:30:00-05:00',
-    slotDuration: '02:00',
-    // startRecur: new Date('2023-06-25'),
-    // endRecur: new Date('2024-06-25'),
-    //daysOfWeek: [0, 1], //for recurring events [0,1] for recurring sunday and mondays
-    title: 'meeting with Julien',
-    url: '/session', //send to link when visited, can be controlled with eventClick
-    interactive: true, // eventInteractive
-    className: 'mockclassname', //or classNames pour 
-    //for more https://fullcalendar.io/docs/event-parsing
-    color: 'red', //for background and border
-  },
-  {
-    id: 3,
-    allDay: true, //or true
     start: new Date(),
     end: new Date(),
     daysOfWeek: [3], //for recurring events [0,1] for recurring sunday and mondays
     title: 'meeting with Juliette',
     url: '/session/3', //send to link when visited, can be controlled with eventClick
-    eventClick: (e) => {
-      e.jsEvent.preventDefault();
-      console.log('Event: ' + e.event.title);
-      console.log('Coordinates: ' + e.jsEvent.pageX + ',' + e.jsEvent.pageY);
-      console.log('View: ' + e.view.type);
-
-      // change the border color just for fun
-      e.el.style.borderColor = 'red';
-      if (e.event.url) {
-        window.open(e.event.url);
-      }
-    },
     interactive: true, // eventInteractive
     className: 'mockclassname', //or classNames pour 
     //for more https://fullcalendar.io/docs/event-parsing
@@ -85,10 +43,26 @@ const events = [
       priority: 'high'
     },
     description: 'Lecture'
-  },
-  { 'title': 'Successful', 'allDay': false, 'start': 1687252357212, 'end': 1687252385729, 'url': '/shlk/cgi-bin/getshlkrunlog.pl?i=21' }
-
+  }, {
+    id: 2,
+    allDay: false,
+    start: "2023-06-06T08:30:00-03:00",
+    end: "2023-06-06T09:30:00-03:00",
+    slotDuration: "01:00",
+    title: "fghjkl",
+    url: "/",
+    interactive: true,
+    extendedProps: {
+      description: "gh",
+      status: "pending",
+      priority: "normal",
+      student: 7,
+      tutors: 1
+    }
+  }
 ]
+*/
+
 // a custom render function
 function renderEventContent(eventInfo) {
   return (
@@ -102,6 +76,14 @@ function renderEventContent(eventInfo) {
 
 
 function addCalendar() {
+  let array_events = [];
+
+  if (Array.isArray(events)) {
+    array_events = events
+  } else {
+    array_events.push(events);
+  }
+
   let calendarEl = document.getElementById('calendar');
   let calendar = new Calendar(calendarEl, {
     plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
@@ -153,12 +135,13 @@ function addCalendar() {
     dateClick: (info) => { addEvent(info) }, //can add selectable true and select: (info)=>{} for several 
     dayMaxEvents: true, // allow "more" link when too many events
     // events: events,
-    events: 'https://fullcalendar.io/api/demo-feeds/events.json',
-    eventSources: [
-      {
-        events: events
-      }
-    ],
+    events: array_events,
+    //events: 'https://fullcalendar.io/api/demo-feeds/events.json',
+    // eventSources: [
+    //   {
+    //     events: events
+    //   }
+    // ],
     eventTimeFormat: { // like '14:30:00'
       hour: '2-digit',
       minute: '2-digit',
@@ -184,18 +167,78 @@ function addCalendar() {
   }
 
 
+  calendar.refetchEvents();
+  // events.forEach((event) => {
+  //   calendar.addEvent(event, 'back-en');
+  // })
+
 
 
   calendar.render();
 }
 
-function getEvents() {
+function axiosGetEvents(user_id, is_student) {
+  //transform data so it can be passed in the body
+  let params;
+  if (is_student) {
+    params = {
+      extendedProps: {
+        Student: user_id
+      }
+    }
+  } else {
+    params = {
+      extendedProps: {
+        Tutor: user_id
+      }
+    }
+  }
 
+  // axios
+  //   .get('http://localhost:8000/api/getSession', { params: { JSON.stringify(params) } })
+
+  // function must return data in that form
+  return [{
+    id: 1,
+    allDay: false,
+    start: "2023-06-29T08:30:00-03:00",
+    end: "2023-06-29T09:30:00-03:00",
+    slotDuration: "01:00",
+    title: "fghjkl",
+    url: "/session/12",
+    interactive: true,
+    extendedProps: {
+      description: "gh",
+      status: "pending",
+      priority: "normal",
+      student: 7,
+      tutors: 1
+    }
+  }, {
+    id: 2,
+    allDay: false,
+    start: "2023-07-01T11:30:00-03:00",
+    end: "2023-07-001T12:30:00-03:00",
+    slotDuration: "01:00",
+    title: "fghjkl",
+    url: "/session/14",
+    interactive: true,
+    extendedProps: {
+      description: "gh",
+      status: "pending",
+      priority: "normal",
+      student: 7,
+      tutors: 1
+    }
+  }]
 }
 
-export default function CalendarPage() {
+export default function CalendarPage({ }) {
   // get session events from back-end and store it into local storage
-  getEvents();
+  events = axiosGetEvents();
+  console.log(events);
+  //alert('You dont have any session planned, lets scedule one !');
+
 
 
   //render calendar after dom has finished rendering components
@@ -204,8 +247,10 @@ export default function CalendarPage() {
     const onPageLoad = () => {
       addCalendar();
       doRenderCalendar(true);
+      if (Array.isArray(events) && !events.length) {
+        alert('You dont have any session planned yet, let schedule one ! \n First click on the calendar, the day and time you want.')
+      }
     };
-
     // Check if the page has already loaded
     if (document.readyState === 'complete') {
       onPageLoad();

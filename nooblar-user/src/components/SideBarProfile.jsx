@@ -47,10 +47,10 @@ export default function SideBarProfile({ user_data, hidden }) {
         </button>
 
         <div className='profile-text'>
-          <b>{user_data.name}</b>
-          <b>{user_data.email}</b>
+          <b>{user_data.name.replace(/"/g, '')}</b>
+          <b>{user_data.email.replace(/"/g, '')}</b>
           <div>
-            {user_data.description}
+            {user_data.description.replace(/"/g, '')}
           </div>
           <input type="button" value="Edit Profile" className="button-link-accent" onClick={displayEditProfile} />
         </div>

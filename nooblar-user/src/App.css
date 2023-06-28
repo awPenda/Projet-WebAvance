@@ -247,8 +247,23 @@ body {
 }
 
 .profile-text {
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
   text-overflow: ellipsis;
+}
+
+
+@media (max-width: 481px) {
+  .profile-text {
+    max-width: 20rem;
+  }
+}
+
+@media (min-width: 481px) {
+  .profile-text {
+    max-width: 40rem;
+  }
 }
 
 .SideBar.SideBar-profile .Profile-box .User-pp {
