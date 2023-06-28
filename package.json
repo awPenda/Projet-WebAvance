@@ -1,0 +1,24 @@
+{
+  "name": "tutoringapp-4",
+  "version": "1.0.0",
+  "description": "Currently each microservices and the FE are on different branches, you have to clone each branch you want. \r Choose `Clone Git Repository...`  \r ![image](https://github.com/awPenda/TutoringApp/assets/56393986/b4bbcf6a-ec91-44fb-90cf-ac2a1d95bcfe)  \r then you have to put the link of the repo `https://github.com/awPenda/TutoringApp/`  \r then follow the instructions",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awPenda/TutoringApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/awPenda/TutoringApp/issues"
+  },
+  "homepage": "https://github.com/awPenda/TutoringApp#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "socket.io": "^4.7.0"
+  }
+}
