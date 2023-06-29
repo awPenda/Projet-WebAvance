@@ -1,5 +1,8 @@
 # Nooblar
 
+## Documentation
+- [FE-user](./FE-user.md)
+
 ## Install locally
 Currently each microservices and the FE are on different branches, you have to clone each branch you want. 
 Choose `Clone Git Repository...`  
