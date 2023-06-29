@@ -49,12 +49,12 @@ These routes are accessible to all users, including non-logged-in users.
 
 - Landing Route:
     - Path: `/landing`
-    - Component: `LandingPage` [Documentation](./LandingPage.md)
+    - Component: `LandingPage`
     - Description: Renders the `LandingPage` component, which represents the landing page of the application.
 
 - Sources Route:
     - Path: `/sources`
-    - Component: `Sources` [Documentation](./Sources.md)
+    - Component: `Sources`
     - Description: Renders the `Sources` component, which provides information about the sources used in the application.
 
 ## Note
