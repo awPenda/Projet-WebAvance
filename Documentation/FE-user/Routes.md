@@ -15,22 +15,22 @@ Private routes are only accessible to logged-in users. They are wrapped inside a
 
 - Index Route:
     - Path: `/`
-    - Component: `CalendarPage`
+    - Component: `CalendarPage` [Documentation](./Calendar.md)
     - Description: Renders the `CalendarPage` component, which displays the main calendar view.
 
 - Find Session Route:
     - Path: `/findsession/:date?`
-    - Component: `ListUsers`
+    - Component: `ListUsers` [Documentation](./ListUsers.md)
     - Description: Renders the `ListUsers` component, which shows a list of users available for sessions. An optional date parameter can be provided to filter the list.
 
 - Session Route:
     - Path: `/session/:id`
-    - Component: `SessionPage`
+    - Component: `SessionPage` [Documentation](./SessionPage.md)
     - Description: Renders the `SessionPage` component, which displays details of a specific session based on the provided id parameter.
 
 - Book Session Route:
     - Path: `/booksession/:date/:askedUser/:isbooked?/:id?`
-    - Component: `BookSession`
+    - Component: `BookSession` [Documentation](./BookSession.md)
     - Description: Renders the `BookSession` component, which allows the user to book a session with a specific user. The route accepts several optional parameters.
 
 ### Other Routes
@@ -39,22 +39,22 @@ These routes are accessible to all users, including non-logged-in users.
 
 - Login Route:
     - Path: `/login`
-    - Component: `ConnectionPage`
+    - Component: `ConnectionPage` [Documentation](./ConnectionPage.md)
     - Description: Renders the `ConnectionPage` component, which provides a login form for users.
 
 - Registration Route:
     - Path: `/registration`
-    - Component: `RegistrationPage`
+    - Component: `RegistrationPage` [Documentation](./RegistrationPage.md)
     - Description: Renders the `RegistrationPage` component, which allows users to register for an account.
 
 - Landing Route:
     - Path: `/landing`
-    - Component: `LandingPage`
+    - Component: `LandingPage` [Documentation](./LandingPage.md)
     - Description: Renders the `LandingPage` component, which represents the landing page of the application.
 
 - Sources Route:
     - Path: `/sources`
-    - Component: `Sources`
+    - Component: `Sources` [Documentation](./Sources.md)
     - Description: Renders the `Sources` component, which provides information about the sources used in the application.
 
 ## Note
