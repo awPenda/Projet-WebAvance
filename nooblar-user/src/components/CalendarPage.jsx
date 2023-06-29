@@ -15,7 +15,7 @@ import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { addEvent } from '../Global'
+import { addEvent, postnotif } from '../Global'
 import axios from 'axios';
 
 
@@ -287,6 +287,9 @@ export default function CalendarPage({ }) {
       addCalendar();
       doRenderCalendar(true);
       if (Array.isArray(events) && !events.length) {
+        const id = localStorage.getItem('id');
+        console.log(id);
+        postnotif("Your account have been created","No You can add session in your calendar ","",id);
         alert('You dont have any session planned yet, let schedule one ! \n First click on the calendar, the day and time you want.')
       }
     };

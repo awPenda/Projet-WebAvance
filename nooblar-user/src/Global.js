@@ -1,3 +1,4 @@
+import axios from 'axios';
 export function addEvent(infos) {
   console.log('dateClick');
   console.log(infos);
@@ -35,6 +36,27 @@ function displayHideElement(e) {
     e.style.visibility = "visible";
     e.style.width = maxWidth;
   }
+}
+export function postnotif(title, bodytext, url, user_id){
+
+const createNotif = async () => {
+  try {
+    let data = {
+      title:title,
+      bodytext:bodytext,
+      url:url,
+      user_id:user_id
+    };
+
+    const response = await axios.post('http://localhost:8070/api/createnotif', data);
+    console.log("voila:"+response.data);
+  } catch (error) {
+    console.error('Error creating notification:', error.message);
+  }
+};
+
+createNotif();
+
 }
 
 export function toggleSideBarProfile() {

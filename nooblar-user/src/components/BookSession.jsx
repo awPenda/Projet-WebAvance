@@ -2,6 +2,7 @@ import defaultPP from '../assets/img/defaultPP.png'
 import { useParams } from "react-router-dom";
 import ProfilePage from "./ProfilePage";
 import axios from 'axios';
+import { addEvent, postnotif } from '../Global'
 
 import { useEffect, useState } from 'react';
 
@@ -42,12 +43,15 @@ const confirmBooking = (e, is_booked) => {
         console.log('booking confirmed');
 
         axios
-            .post('http://localhost:8080/api/booksession', JSON.stringify(infos_session))
+            .post('http://localhost:8080/api/booksession', infos_session)
             .then((response) => {
                 window.alert('This session is been booked :D');
                 // Traitement de la réponse du backend (si nécessaire)
                 console.log(response.data);
                 window.location.href = "/";
+                const id = localStorage.getItem('id');
+                console.log(id);
+                postnotif("Your reserved a session with a teacher","No You can join the meeting directly on the calendar","",id);
             })
             .catch((error) => {
                 console.log(infos_session);
@@ -90,6 +94,9 @@ const confirmBooking = (e, is_booked) => {
                 console.log(response.data);
                 alert('session created')
                 window.location.href = "/";
+                const id = localStorage.getItem('id');
+                console.log(id);
+                postnotif("Your reserved a session with a student","No You can join the meeting directly on the calendar ","",id);
             })
             .catch((error) => {
                 console.log(infos_session);

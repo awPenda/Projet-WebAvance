@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toggleSideBarNotifs, toggleSideBarProfile, postnotif } from '../Global'
 
 export default function RegistrationPage() {
   const [name, setName] = useState('');

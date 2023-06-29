@@ -6,7 +6,7 @@ import fakepp from './assets/img/fakePP.png';
 import fakeppdidi from './assets/img/fakeppdidiane.jpeg'
 import defaultPP from './assets/img/defaultPP.png'
 import './App.css';
-import { toggleSideBarNotifs, toggleSideBarProfile } from './Global'
+import { toggleSideBarNotifs, toggleSideBarProfile, postnotif } from './Global'
 import Icons from './components/Icons';
 import SideBarProfile from './components/SideBarProfile';
 import SideBarNotifs from './components/SideBarNotifs';
@@ -20,6 +20,7 @@ import { PrivateRoutes } from './components/PrivateRoutes'
 import LandingPage from './components/LandingPage'
 import Sources from './components/Sources'
 import BookSession from './components/BookSession';
+
 // let user_data = {
 //   name: "Rémy Covillon",}
 
@@ -39,7 +40,6 @@ const user_data = {
 
 function App() {
   let isHidden = true; // "hidden" or "visible"
-
   return (
     <div className="App">
       <header className="App-header">
