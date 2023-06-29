@@ -30,12 +30,6 @@ The App component is defined as a function component:
 The JSX structure of the App component is as follows:
 
 - Header: Displays the application logo, title, and user-specific buttons.
-- Routes: Defines the routing for different components of the application.
-- Sidebar components: Display the user's profile and notifications if logged in.
-
-
-
-## Routes
-[Routes Documentation](https://github.com/awPenda/TutoringApp/blob/main/Documentation/FE-user/Routes.md)
-
+- Routes: Defines the routing for different components of the application. [Routes Documentation](./Routes.md)
+- Sidebar components: Display the user's profile and notifications if logged in. [SideBarNotifs Documentation](./SideBarNotifs.md) [SideBarProfile Documentation](./SideBarProfile.md)
 
