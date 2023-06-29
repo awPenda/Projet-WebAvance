@@ -1,8 +1,8 @@
-### Notif Management API
+# Notif Management API
 
 The Notif Management API provides endpoints for managing notifications in your application. With this API, you can create, retrieve, update, and delete notifications for users.
 
-#### Installation
+## Installation
 
 To use the Notif Management API, follow these steps:
 
@@ -12,7 +12,7 @@ To use the Notif Management API, follow these steps:
 4. Set up the API endpoints in your Express application, using the provided code.
 5. Start your Node.js server and test the API endpoints using an API client like Postman or cURL.
 
-#### Endpoints
+## Endpoints
 
 The Notif Management API provides the following endpoints:
 
@@ -21,7 +21,7 @@ The Notif Management API provides the following endpoints:
 - `PUT /notif/:id`: Update a notification by ID.
 - `DELETE /notif/:id`: Delete a notification by ID.
 
-#### Create a Notification
+## Create a Notification
 
 - Endpoint: `POST /notif/create`
 - Description: Creates a new notification.
@@ -34,7 +34,7 @@ The Notif Management API provides the following endpoints:
   - `201 Created`: Notification added successfully. Returns the created notification.
   - `500 Internal Server Error`: Error adding notification.
 
-#### Get All Notifications for a User
+## Get All Notifications for a User
 
 - Endpoint: `GET /notif/all`
 - Description: Retrieves all notifications for a user.
@@ -45,7 +45,7 @@ The Notif Management API provides the following endpoints:
   - `404 Not Found`: Notifications not found.
   - `500 Internal Server Error`: Error retrieving notifications.
 
-#### Update a Notification
+## Update a Notification
 
 - Endpoint: `PUT /notif/:id`
 - Description: Updates a notification by its ID.
@@ -59,7 +59,7 @@ The Notif Management API provides the following endpoints:
   - `404 Not Found`: Notification not found.
   - `500 Internal Server Error`: Error updating notification.
 
-#### Delete a Notification
+## Delete a Notification
 
 - Endpoint: `DELETE /notif/:id`
 - Description: Deletes a notification by its ID.
@@ -70,7 +70,7 @@ The Notif Management API provides the following endpoints:
   - `404 Not Found`: Notification not found.
   - `500 Internal Server Error`: Error deleting notification.
 
-#### Error Responses
+## Error Responses
 
 The Notif Management API uses standard HTTP status codes to indicate the success or failure of each request. In case of an error, additional information may be provided in the response body.
 
