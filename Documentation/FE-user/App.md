@@ -36,6 +36,6 @@ The JSX structure of the App component is as follows:
 
 
 ## Routes
-
+[Routes Documentation](https://github.com/awPenda/TutoringApp/blob/main/Documentation/FE-user/Routes.md)
 
 
