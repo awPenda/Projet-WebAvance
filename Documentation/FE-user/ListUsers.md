@@ -22,11 +22,10 @@ function App() {
 
 The `ListUsers` component requires the following dependencies:
 
-- `ProfilePage`: A component that displays the profile information of a user.
+- `ProfilePage`: A component that displays the profile information of a user. [Documentation](./ProfilePage.md)
 - `Icons`: A component that renders different types of icons.
 - `axios`: A library used for making HTTP requests.
 - `React`: The core React library.
-- `renderToStaticMarkup` and `renderToString` from `react-dom/server`: Functions used for rendering React components to HTML strings.
 - `useEffect` and `useState` from `react`: Hooks used for handling side effects and managing state.
 
 ## Assets
