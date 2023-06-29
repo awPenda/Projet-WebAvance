@@ -9,7 +9,7 @@
 ## Main branches for each service
 
 - FE-user: [FE-user](https://github.com/awPenda/TutoringApp/tree/FE-user)
-- FE-admin: [?]()
+- FE-admin: [admin](https://github.com/awPenda/TutoringApp/tree/admin)
 - user management and authentication: [MS-userManagementAuth](https://github.com/awPenda/TutoringApp/tree/MS-userManagementAuth)
 - sessions: [BE_session](https://github.com/awPenda/tutoringapp/tree/BE_session)
 - notifications: [BE-notifs](https://github.com/awPenda/tutoringapp/tree/BE-notif)
