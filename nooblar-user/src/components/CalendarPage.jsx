@@ -179,23 +179,49 @@ function addCalendar() {
 
 function axiosGetEvents(user_id, is_student) {
   //transform data so it can be passed in the body
-  let params;
-  if (is_student) {
-    params = {
+  let par;
+  if (is_student=='true') {
+    par = {
       extendedProps: {
-        Student: user_id
+        student: user_id
       }
     }
+    axios
+  .get('http://localhost:8080/api/getSessionStudent', { params: par})
+  .then((response) => {
+    console.log("reponse:"+response.data);
+    // displayFetchedUsers(response.data);
+    const hmtl_elm = document.getElementById('calendar');
+    hmtl_elm.setAttribute('data-listevents', JSON.stringify(response.data));
+
+    rerenderListEvents();
+    //console.log('Successfully fetched user data');
+})
+.catch((error) => {
+    console.error('Error fetching user data:', error);
+});
   } else {
-    params = {
+    par = {
       extendedProps: {
-        Tutor: user_id
+        tutors: user_id
       }
     }
+    axios
+    .get('http://localhost:8080/api/getSessionTutors', { params: par})
+    .then((response) => {
+      console.log("reponse:"+response.data);
+      // displayFetchedUsers(response.data);
+      const hmtl_elm = document.getElementById('calendar');
+      hmtl_elm.setAttribute('data-listevents', JSON.stringify(response.data));
+  
+      rerenderListEvents();
+      //console.log('Successfully fetched user data');
+  })
+  .catch((error) => {
+      console.error('Error fetching user data:', error);
+  });
   }
 
-  // axios
-  //   .get('http://localhost:8000/api/getSession', { params: { JSON.stringify(params) } })
 
   // function must return data in that form
   return [{
@@ -233,10 +259,23 @@ function axiosGetEvents(user_id, is_student) {
   }]
 }
 
+
+function rerenderListEvents() {
+
+  const hmtl_elm = document.getElementById('calendar');
+  const list_hmtl = JSON.parse(hmtl_elm.dataset.listevents);
+  events = list_hmtl;
+  console.log(events);
+
+  // forceUpdate();
+
+}
+
 export default function CalendarPage({ }) {
   // get session events from back-end and store it into local storage
-  events = axiosGetEvents();
+  events = axiosGetEvents(localStorage.getItem('id'),localStorage.getItem('student'));
   console.log(events);
+  
   //alert('You dont have any session planned, lets scedule one !');
 
 
@@ -271,7 +310,7 @@ export default function CalendarPage({ }) {
       <a href="https://github.com/fullcalendar/fullcalendar-react">link for their github</a>
     </div>
 
-    <div id='calendar'>
+    <div id='calendar' data-listevents>
     </div>
     {renderCalendar}
   </>);
