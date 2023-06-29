@@ -44,10 +44,42 @@ const addSession = async (req, res) => {
 };
 
 
-const getSession = async (req, res) => {
-  const { extendedProps:{student}} = req.body;
+const getSessionStudent = async (req, res) => {
+  const { extendedProps:{student}} = req.query;
   try {
     const sessions = await Session.find({ 'extendedProps.student': student});
+    if (!sessions) {
+      return res.status(404).json({ error: 'Session not found' });
+    }
+    // Ajoutez d'autres propriétés nécessaires pour votre modèle de session
+    const userSession = sessions.map((session) => {
+      const ID = session.id;
+      const allDay = session.allDay;
+      const start = session.start;
+      const end = session.end;
+      const slotDuration = session.slotDuration;
+      const title = session.title;
+      const url = session.url;
+      const interactive = session.interactive;
+      const description = session.extendedProps.description;
+      const status = session.extendedProps.status;
+      const priority = session.extendedProps.priority;
+      const tutors = session.extendedProps.tutors;
+      const students = session.extendedProps.student;
+      return { ID, allDay, start, end, slotDuration, title, url, interactive, description, status, priority,tutors,students};
+    });
+
+    console.log(userSession);
+    return res.json(userSession);
+  } catch (error) {
+    console.error('Error retrieving session:', error);
+    return res.status(500).json({ error: 'Error retrieving session', detailedError: error.message });
+  }
+};
+const getSessionTutors = async (req, res) => {
+  const { extendedProps:{tutors}} = req.query;
+  try {
+    const sessions = await Session.find({ 'extendedProps.tutors': tutors});
     if (!sessions) {
       return res.status(404).json({ error: 'Session not found' });
     }
@@ -152,7 +184,7 @@ const deleteSession = async (req, res) => {
   }
 };
 
-module.exports = {getSession, addSession, deleteSession, getSessionByID,updateSession};
+module.exports = {getSessionStudent, addSession, deleteSession, getSessionByID,updateSession, getSessionTutors};
   
   
   
