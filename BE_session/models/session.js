@@ -32,7 +32,7 @@ const sessionSchema = new mongoose.Schema({
   extendedProps: {
     description: {
       type: String,
-      required: true
+      required: false
     },
     status: {
       type: String,
