@@ -6,6 +6,14 @@
 - Documentation Back-end session management [BE-session](./Documentation/BE-session.md)
 - Documentation Back-end notification management [BE-notif](./Documentation/BE-notif.md)
 
+## Main branches for each service
+
+- FE-user: [FE-user](https://github.com/awPenda/TutoringApp/tree/FE-user)
+- FE-admin: [?]()
+- user management and authentication: [MS-userManagementAuth](https://github.com/awPenda/TutoringApp/tree/MS-userManagementAuth)
+- sessions: [BE_session](https://github.com/awPenda/tutoringapp/tree/BE_session)
+- notifications: [BE-notifs](https://github.com/awPenda/tutoringapp/tree/BE-notif)
+
 ## Install locally
 Currently each microservices and the FE are on different branches, you have to clone each branch you want. 
 Choose `Clone Git Repository...`  
