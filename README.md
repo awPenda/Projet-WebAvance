@@ -1,10 +1,10 @@
 # Nooblar
 
 ## Documentation
-- [FE-user](./Documentation/FE-user.md)
-- [BE-userAuth](./Documentation/BE-userAuth.md)
-- [BE-session](./Documentation/BE-session.md)
-- [BE-notif](./Documentation/BE-notif.md)
+- Document Front-end User [FE-user](./Documentation/FE-user.md)
+- Documentation Back-end user management and authentication [BE-userAuth](./Documentation/BE-userAuth.md)
+- Documentation Back-end session management [BE-session](./Documentation/BE-session.md)
+- Documentation Back-end notification management [BE-notif](./Documentation/BE-notif.md)
 
 ## Install locally
 Currently each microservices and the FE are on different branches, you have to clone each branch you want. 
