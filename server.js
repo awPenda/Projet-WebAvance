@@ -2,7 +2,8 @@ const express = require('express');
 const connectDB = require('./config/database'); // import database.js
 const notifRoutes = require('./routes/notifRoutes');
 
-const app = express();
+const app = express();  
+app.use(express.json({ extended: true }));
 connectDB(); // call connectDB to establish connection with database
 
 app.use('/api', notifRoutes);

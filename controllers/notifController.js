@@ -39,7 +39,7 @@ const createNotif = async (req, res) => {
  * @returns 
  */
 const getAllNotif = async (req, res) => {
-    const { user_id } = req.params;
+    const { user_id } = req.query;
     try {
         //see after, but it would be great to be ordered by date, latest first.
         const notifs = await Notif.find({ 'user_id': user_id });
