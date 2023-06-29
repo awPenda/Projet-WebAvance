@@ -25,6 +25,7 @@ export default function SideBarProfile({ user_data, hidden }) {
         localStorage.removeItem('refreshToken');
 
         localStorage.clear();
+        window.location.href = '/';
       })
       .catch((error) => {
         console.error('Error logging out:', error);
